@@ -20,9 +20,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
 
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import home from './home';
-import about from './about';
-import contact from './contact';
+import Home_page from './Home_page';
+import About from './About';
+import Contact from './Contact';
 
 const drawerWidth = 240;
 
@@ -118,11 +118,35 @@ export default function PersistentDrawerLeft() {
           <Typography variant="h6" noWrap>
             Codestorm Hackethon
           </Typography>
+
           <Button variant="h6" color="inherit">Home</Button>
           <Button variant="h6" color="inherit">About</Button>
           <Button variant="h6" color="inherit">Contact</Button>
           <Button variant="h6" color="inherit">Sign Up</Button>
-          <Button variant="h6" color="inherit">Login</Button>
+          <Button variant="h6" color="inherit">Sign In</Button>
+
+          {/* <Router>
+          <Button variant="h6" color="inherit">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+          </Button>
+          <Button variant="h6" color="inherit">
+            <li>
+              <Link to="/About">About</Link>
+            </li>
+          </Button>
+          <Button variant="h6" color="inherit">
+            <li>
+              <Link to="/Contact">Contact</Link>
+            </li>
+          </Button>
+          <Switch>
+              <Route exact path='/' component={Home_page}></Route>
+              <Route exact path='/About' component={About}></Route>
+              <Route exact path='/Contact' component={Contact}></Route>
+          </Switch>
+          </Router> */}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -164,29 +188,6 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
       </main>
     </div>
   );

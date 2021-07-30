@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
-function about (){
+function About (){
     return (
         <div>
             <Navbar />
@@ -10,4 +10,4 @@ function about (){
     )
 }
   
-export default about;
+export default About;
