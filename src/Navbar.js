@@ -19,10 +19,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
 
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import Home_page from './Home_page';
-import About from './About';
-import Contact from './Contact';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -92,6 +89,8 @@ export default function PersistentDrawerLeft() {
     setOpen(true);
   };
 
+  const buttonStyle = {color: "white", textDecoration: "none", marginRight: "2rem"};
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -116,37 +115,14 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Codestorm Hackethon
+          <Link to='/' style={buttonStyle}>Codestorm Hackathon</Link>
           </Typography>
 
-          <Button variant="h6" color="inherit">Home</Button>
-          <Button variant="h6" color="inherit">About</Button>
-          <Button variant="h6" color="inherit">Contact</Button>
-          <Button variant="h6" color="inherit">Sign Up</Button>
-          <Button variant="h6" color="inherit">Sign In</Button>
-
-          {/* <Router>
-          <Button variant="h6" color="inherit">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </Button>
-          <Button variant="h6" color="inherit">
-            <li>
-              <Link to="/About">About</Link>
-            </li>
-          </Button>
-          <Button variant="h6" color="inherit">
-            <li>
-              <Link to="/Contact">Contact</Link>
-            </li>
-          </Button>
-          <Switch>
-              <Route exact path='/' component={Home_page}></Route>
-              <Route exact path='/About' component={About}></Route>
-              <Route exact path='/Contact' component={Contact}></Route>
-          </Switch>
-          </Router> */}
+          <Typography variant="h6" noWrap><Link to='/' style={buttonStyle}>Home</Link></Typography>
+          <Typography variant="h6" noWrap><Link to='/about' style={buttonStyle}>About</Link></Typography>
+          <Typography variant="h6" noWrap><Link to='/contact' style={buttonStyle}>Contact</Link></Typography>
+          <Typography variant="h6" noWrap><Link to='/sign-up' style={buttonStyle}>Sign Up</Link></Typography>
+          <Typography variant="h6" noWrap><Link to='/sign-in' style={buttonStyle}>Sign In</Link></Typography>
         </Toolbar>
       </AppBar>
       <Drawer
