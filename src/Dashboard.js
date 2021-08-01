@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 export default function Dashboard() {
     const classes = useStyles();
-    const { logout, currentUser } = useAuth();
+    const { logout, googleLogin } = useAuth();
     const history = useHistory();
 
     // useEffect(() => {
@@ -47,25 +47,14 @@ export default function Dashboard() {
         }
     }
 
+
+
     return (
         <>
             <Navbar logout={<Button onClick={handleLogout}>Log Out</Button>} updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>} />
-            {/* <Card className={classes.root} variant="outlined">
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        Your Profile
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-                        {currentUser.email}
-                    </Typography>
-                    <Button size="small"
-                        color="secondary">
-                        <Link to='/updateProfile'>Update - Profile</Link></Button>
-                </CardContent>
-                <CardActions>
-                    <Button size="small" onClick={handleLogout}>Log out</Button>
-                </CardActions>
-            </Card> */}
+
+
+
         </>
     );
 }

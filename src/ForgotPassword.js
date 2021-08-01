@@ -29,11 +29,12 @@ export default function Login() {
         try {
             await resetPassword(emailRef.current.value);
             history.push('/login ')
+            setLoading(false);
         } catch {
             alert("Failed to login");
+            setLoading(false);
         }
 
-        setLoading(false);
 
 
     }
