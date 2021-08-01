@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAuth } from './Context/AuthContext';
-import { useHistory } from 'react-router';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,32 +14,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Signup() {
+export default function Login() {
 
     const classes = useStyles();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const passwordConfirmRef = useRef();
     const [loading, setLoading] = useState(false);
-    const { signup } = useAuth();
+    const { login } = useAuth();
     const history = useHistory();
 
     async function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            alert("Password does not Match");
-            setLoading(false);
-            return;
-        }
 
         try {
-            await signup(emailRef.current.value, passwordRef.current.value);
-            history.push('/login')
+            await login(emailRef.current.value, passwordRef.current.value);
+            setLoading(false);
+            history.push('/dashboard ')
+            window.location.reload();
         } catch {
-            alert("Failed to create account");
+            alert("Failed to login");
+            setLoading(false);
         }
-        setLoading(false);
+
 
 
     }
@@ -53,11 +50,14 @@ export default function Signup() {
                 <br />
                 <TextField id="outlined-basic" label="PassWord" variant="outlined" required inputRef={passwordRef} />
                 <br />
-                <TextField id="outlined-basic" label="ConfirmPassword" variant="outlined" required inputRef={passwordConfirmRef} />
-                <br />
                 <Button type='submit' disabled={loading} variant="contained" color="secondary">
-                    SignUp
+                    Login
                 </Button>
+                <Button color="primary">
+                    <Link to='/forgot-password'> Forgot-Password </Link>
+                </Button>
+
+
             </form>
 
 

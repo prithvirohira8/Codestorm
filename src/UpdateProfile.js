@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAuth } from './Context/AuthContext';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,32 +14,43 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Signup() {
+export default function UpdateProfile() {
 
     const classes = useStyles();
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const [loading, setLoading] = useState(false);
-    const { signup } = useAuth();
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
+    const { currentUser, updateEmail, updatePassword } = useAuth();
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        setLoading(true);
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
             alert("Password does not Match");
-            setLoading(false);
             return;
         }
 
-        try {
-            await signup(emailRef.current.value, passwordRef.current.value);
-            history.push('/login')
-        } catch {
-            alert("Failed to create account");
+        const promises = [];
+        setLoading(true);
+        if (emailRef.current.value !== currentUser.email) {
+            promises.push(updateEmail(emailRef.current.value));
         }
-        setLoading(false);
+        if (passwordRef.current.value) {
+            promises.push(updatePassword(passwordRef.current.value));
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                history.push('/login');
+            })
+            .catch(() => {
+                alert("Failed to update")
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+
 
 
     }
@@ -56,7 +67,7 @@ export default function Signup() {
                 <TextField id="outlined-basic" label="ConfirmPassword" variant="outlined" required inputRef={passwordConfirmRef} />
                 <br />
                 <Button type='submit' disabled={loading} variant="contained" color="secondary">
-                    SignUp
+                    Update Profile
                 </Button>
             </form>
 
