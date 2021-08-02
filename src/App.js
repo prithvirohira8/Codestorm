@@ -16,10 +16,13 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+
   return (
     <Router>
       <AuthProvider>
         <Switch>
+
           <Route exact path='/' component={Home_page} />
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
           <PrivateRoute exact path='/updateProfile' component={UpdateProfile} />

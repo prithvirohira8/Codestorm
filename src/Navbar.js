@@ -20,10 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-import Home_page from './Home_page';
 import About from './About';
-import Contact from './Contact';
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -88,6 +85,7 @@ export default function Navbar(props) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -95,6 +93,8 @@ export default function Navbar(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+
 
     return (
         <div className={classes.root}>
@@ -119,14 +119,21 @@ export default function Navbar(props) {
                         Codestorm Hackethon
                     </Typography>
 
-                    <Link to='/'><Button color="secondary">Home</Button></Link>
-                    <Link to='/about'>
-                        <Button color="secondary" onClick={() => { return (<About />) }}>About</Button></Link>
-                    <Link to='/contact'><Button color="secondary">Contact</Button></Link>
+                    <Link to='/'><Button color="secondary" onClick={() => {
+                        props.getData("");
+                    }}>Home</Button></Link>
+                    <Button color="secondary" onClick={() => {
+                        props.getData("About");
+                    }}>About</Button>
+
+                    <Button color="secondary" onClick={() => {
+                        props.getData("Contact");
+                    }}>Contact</Button>
 
 
                     {props.logout}
                     {props.updateProfile}
+                    {props.googleLogin}
                     <Link to='/signup'>{props.signup}</Link>
                     <Link to='/login'>{props.login}</Link>
 
