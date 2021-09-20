@@ -94,8 +94,6 @@ export default function Navbar(props) {
         setOpen(false);
     };
 
-
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -129,13 +127,12 @@ export default function Navbar(props) {
                     <Button color="secondary" onClick={() => {
                         props.getData("Contact");
                     }}>Contact</Button>
-
-
+                    
                     {props.logout}
                     {props.updateProfile}
-                    {props.googleLogin}
                     <Link to='/signup'>{props.signup}</Link>
-                    <Link to='/login'>{props.login}</Link>
+                    <Link to='/Students_login'>{props.students_login}</Link>
+                    <Link to='/Teachers_login'>{props.teachers_login}</Link>
 
                 </Toolbar>
             </AppBar>

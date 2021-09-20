@@ -5,30 +5,11 @@ import { useAuth } from './Context/AuthContext';
 import { useHistory, Redirect } from 'react-router-dom';
 
 function Home_page() {
-    const { googleLogin, currentUser } = useAuth();
-    const history = useHistory();
-
-    async function handleLogin() {
-        try {
-            await googleLogin();
-            alert("ho gaya");
-            history.push('/dashboard');
-        }
-        catch {
-            alert("Failed");
-        }
-    }
     return (
         <div>
-            {
-                currentUser ? <Redirect to='/dashboard' /> : ""
-            }
-            <Navbar signup={<Button>Sign Up</Button>} login={<Button>Log In</Button>} googleLogin={<Button onClick={handleLogin} color="secondary">Sign In With Google</Button>} />
+            <Navbar signup={<Button>Sign Up</Button>} students_login={<Button>Students Log In</Button>} teachers_login={<Button>Teachers Log In</Button>} />
             <h2>This is the Home Page</h2>
-
         </div>
-
     )
 }
-
 export default Home_page;

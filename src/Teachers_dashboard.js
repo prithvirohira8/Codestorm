@@ -28,15 +28,11 @@ const useStyles = makeStyles({
 });
 
 
-export default function Dashboard() {
+export default function Teachers_dashboard() {
     const classes = useStyles();
     const { logout, currentUser } = useAuth();
     const history = useHistory();
-
     const [button, setButton] = useState("");
-
-
-
     async function handleLogout() {
         try {
             await logout();
@@ -46,46 +42,26 @@ export default function Dashboard() {
             alert('Failed to Logout');
         }
     }
-
     function getData(val) {
         setButton(val);
     }
-
-
-
     return (
         <>
-
-
             <Navbar
                 logout={<Button onClick={handleLogout}>Log Out</Button>} updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}
                 getData={getData} />
-
             {
                 button === "About" ? <About /> : ""
             }
-
             {
                 button === "Contact" ? <Contact /> : ""
             }
-
-            {
-                button === "" ?
-                    <>
-                        {console.log(currentUser)}
-                        <h1>{currentUser.email}</h1>
-                        <br />
-                        {currentUser.displayName}
-                        <br />
-                        <img src={currentUser.photoURL} />
-                    </> : ""
-            }
-
-
-            {/*  */}
-
-
-
+            <div>
+                {
+                    <h1>Teachers Dashboard</h1>      
+                }
+                
+            </div>
         </>
     );
 }
