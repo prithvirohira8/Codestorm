@@ -8,37 +8,17 @@ import Card from "./Cards";
 import Feature from "./Feature";
 
 function Home_page() {
-	const { googleLogin, currentUser } = useAuth();
-	const history = useHistory();
-
-	async function handleLogin() {
-		try {
-			await googleLogin();
-			alert("ho gaya");
-			history.push("/dashboard");
-		} catch {
-			alert("Failed");
-		}
-	}
 	return (
-		<>
-			<div>
-				{currentUser ? <Redirect to="/dashboard" /> : ""}
-				<Navbar
-					signup={<Button>Teacher</Button>}
-					login={<Button>Student</Button>}
-					googleLogin={
-						<Button onClick={handleLogin} color="secondary">
-							Sign In With Google
-						</Button>
-					}
-				/>
-				<Front />
-				<Card />
-				<Feature />
-			</div>
-		</>
+		<div>
+			<Navbar
+				signup={<Button>Sign Up</Button>}
+				students_login={<Button>Students Log In</Button>}
+				teachers_login={<Button>Teachers Log In</Button>}
+			/>
+			<Front />
+			<Card />
+			<Feature />
+		</div>
 	);
 }
-
 export default Home_page;

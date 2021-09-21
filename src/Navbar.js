@@ -20,7 +20,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Button from "@material-ui/core/Button";
 
 import { Link } from "react-router-dom";
-// import About from './About';
+import About from "./About";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -146,9 +146,9 @@ export default function Navbar(props) {
 
 					{props.logout}
 					{props.updateProfile}
-					{props.googleLogin}
 					<Link to="/signup">{props.signup}</Link>
-					<Link to="/login">{props.login}</Link>
+					<Link to="/Students_login">{props.students_login}</Link>
+					<Link to="/Teachers_login">{props.teachers_login}</Link>
 				</Toolbar>
 			</AppBar>
 			<Drawer

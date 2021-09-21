@@ -8,7 +8,6 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-
 export function AuthProvider({ children }) {
 
     const [currentUser, setCurrentUser] = useState();
@@ -18,7 +17,11 @@ export function AuthProvider({ children }) {
         return auth.createUserWithEmailAndPassword(email, password);
     }
 
-    function login(email, password) {
+    function students_login(email, password) {
+        return auth.signInWithEmailAndPassword(email, password);
+    }
+
+    function teachers_login(email, password) {
         return auth.signInWithEmailAndPassword(email, password);
     }
 
@@ -38,15 +41,11 @@ export function AuthProvider({ children }) {
         return currentUser.updatePassword(password);
     }
 
-    function googleLogin() {
-        return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    }
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
             setLoading(false);
         })
-
         return unsubscribe;
     }, [])
 
@@ -54,12 +53,12 @@ export function AuthProvider({ children }) {
     const value = {
         currentUser,
         signup,
-        login,
+        students_login,
+        teachers_login,
         logout,
         resetPassword,
         updateEmail,
-        updatePassword,
-        googleLogin
+        updatePassword
     }
 
     return (
