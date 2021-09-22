@@ -8,8 +8,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import About from './About';
-import Contact from './Contact'
 import app from './firebase';
 
 const useStyles = makeStyles({
@@ -52,10 +50,6 @@ export default function Students_dashboard() {
         }
     }
 
-    function getData(val) {
-        setButton(val);
-    }
-
     const student_info_ref = app.database().ref('Students/'+currentUser.uid)
     const student_info = []
     student_info_ref.on('value',(snapshot) => {
@@ -76,10 +70,7 @@ export default function Students_dashboard() {
             <Navbar
                 logout={<Button onClick={handleLogout}>Log Out</Button>}
                 updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}
-                getData={getData}
             />
-            {button === "About" ? <About /> : ""}
-            {button === "Contact" ? <Contact /> : ""}
 
             <div>
             <h1>Students Dashboard</h1>

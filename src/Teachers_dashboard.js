@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { useAuth } from './Context/AuthContext';
 import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +8,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import About from './About';
-import Contact from './Contact'
+import app from './firebase';
+import TextField from '@material-ui/core/TextField';
+
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
@@ -29,10 +30,21 @@ const useStyles = makeStyles({
 
 
 export default function Teachers_dashboard() {
+
+    const CourseNameRef = useRef();
+    const CourseTopicNameRef = useRef();
+    const CourseDescriptionRef = useRef();
+    const TopicDescriptionRef = useRef();
+    const VideoLinkRef = useRef();
     const classes = useStyles();
+    const [name,setName] = useState();
+    const [CreateCourse,setCreateCourse] = useState(false);
     const { logout, currentUser } = useAuth();
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
     const [button, setButton] = useState("");
+    const [CourseName, setCourseName] = useState("");
+
     async function handleLogout() {
         try {
             await logout();
@@ -42,26 +54,94 @@ export default function Teachers_dashboard() {
             alert('Failed to Logout');
         }
     }
-    function getData(val) {
-        setButton(val);
-    }
+
+    const teacher_info_ref = app.database().ref('Teachers/'+currentUser.uid)
+    const teacher_info = []
+    teacher_info_ref.on('value',(snapshot) => {
+        teacher_info.push(snapshot.val())
+    })
+
+    setTimeout(() => {
+        setName(teacher_info[0].Name)
+    }, 1000);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const Course_Ref = app.database().ref('Courses/'+CourseNameRef.current.value)
+        setCourseName(CourseNameRef.current.value)
+        const Course_info = {
+            Name: CourseNameRef.current.value,
+            Description: CourseDescriptionRef.current.value
+        }
+        Course_Ref.child('Course_Details').set(Course_info)
+        setCreateCourse(true);
+     }
+
+     function handleSubmit1(e) {
+        e.preventDefault();
+        const Topic_Ref = app.database().ref('Courses/'+CourseName)
+        const Topic_info = {
+            Name: CourseTopicNameRef.current.value,
+            Description: TopicDescriptionRef.current.value,
+            Video: VideoLinkRef.current.value
+        }
+        Topic_Ref.push(Topic_info)
+        setCreateCourse(true);
+     }
+
+     function push(){
+         setCreateCourse(false);
+     }
+
     return (
         <>
             <Navbar
-                logout={<Button onClick={handleLogout}>Log Out</Button>} updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}
-                getData={getData} />
-            {
-                button === "About" ? <About /> : ""
-            }
-            {
-                button === "Contact" ? <Contact /> : ""
-            }
+                logout={<Button onClick={handleLogout}>Log Out</Button>} updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}/>
             <div>
-                {
-                    <h1>Teachers Dashboard</h1>      
-                }
-                
+                <h1>Instructor's Dashboard</h1>
+                <h3>Hello {name}</h3>
             </div>
+
+            {
+                CreateCourse ?
+                (
+                    <div>
+                        <form onSubmit={handleSubmit1} className={classes.root} >
+                        <TextField id="outlined-basic" label="Topic Name" variant="outlined" value={}  required inputRef={CourseTopicNameRef} />
+                        <br />
+                        <br /> 
+                        <TextField id="outlined-basic" label="Topic Description" variant="outlined" value={} required inputRef={TopicDescriptionRef} />
+                        <br />
+                        <br />  
+                        <TextField id="outlined-basic" label="Video Link" variant="outlined" value={} required inputRef={VideoLinkRef} />
+                        <br /> 
+                        <br />
+                        <Button type='submit' disabled={loading} variant="contained" color="secondary">
+                           Add Topic
+                        </Button>
+                        </form>
+                        <br /> 
+                        <br />
+                        <Button onClick={push} disabled={loading} variant="contained" color="secondary">
+                          Add Course
+                        </Button>
+                    </div>
+                )
+                :
+                (
+                    <form onSubmit={handleSubmit} className={classes.root} >
+                     <TextField id="outlined-basic" label="Course Name" variant="outlined" value={} required inputRef={CourseNameRef} />
+                     <br />
+                     <br />
+                     <TextField id="outlined-basic" label="Description" variant="outlined" value={} required inputRef={CourseDescriptionRef} />
+                     <br /> 
+                     <br />
+                     <Button type='submit' disabled={loading} variant="contained" color="secondary">
+                        Create Course
+                     </Button>
+                     </form>
+                )
+            }
         </>
     );
 }

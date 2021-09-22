@@ -29,16 +29,19 @@ export default function Teachers_login() {
 
 
     if (task) {
-        console.log("Hello")
-        const student_info_ref = app.database().ref('Students/' + currentUser.uid)
-        const student_info = [];
+        console.log("Hello");
+        const student_id_ref = app.database().ref('Students');
+        const student_id = [];
 
-        student_info_ref.on('value', (snapshot) => {
-            student_info.push(snapshot.val())
+        student_id_ref.on('value', (snapshot) => {
+            const ids = snapshot.val();
+            for(let id in ids){
+                student_id.push(id);
+            }
+            console.log(student_id);
         })
-
         setTimeout(() => {
-            if (student_info[0].Occupation == 'student') {
+            if (student_id.includes(currentUser.uid)) {
                 alert("Access to teachers dashboard is denied!");
                 history.push('/')
             }
@@ -49,6 +52,7 @@ export default function Teachers_login() {
             }
         }, 1000);
     }
+
 
     async function handleSubmit(e) {
         e.preventDefault();

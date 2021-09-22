@@ -9,8 +9,7 @@ import ForgotPassword from './ForgotPassword';
 import UpdateProfile from './UpdateProfile';
 import { AuthProvider } from './Context/AuthContext';
 import Home_page from './Home_page'
-import About from './About';
-import Contact from './Contact';
+import Courses from './Courses'
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,8 +28,7 @@ function App() {
           <PrivateRoute exact path='/teachers_dashboard' component={Teachers_dashboard} />
           <PrivateRoute exact path='/updateProfile' component={UpdateProfile} />
           <Route exact path='/forgot-password' component={ForgotPassword} />
-          <Route exact path="/About" component={About} />
-          <Route exact path="/Contact" component={Contact} />
+          <Route exact path="/courses" component={Courses} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/students_login" component={Students_login} />
           <Route exact path="/teachers_login" component={Teachers_login} />

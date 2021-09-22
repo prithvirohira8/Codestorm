@@ -20,7 +20,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
 
 import { Link } from 'react-router-dom';
-import About from './About';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -117,17 +116,8 @@ export default function Navbar(props) {
                         Codestorm Hackethon
                     </Typography>
 
-                    <Link to='/'><Button color="secondary" onClick={() => {
-                        props.getData("");
-                    }}>Home</Button></Link>
-                    <Button color="secondary" onClick={() => {
-                        props.getData("About");
-                    }}>About</Button>
-
-                    <Button color="secondary" onClick={() => {
-                        props.getData("Contact");
-                    }}>Contact</Button>
-                    
+                    <Link to='/'><Button>Home</Button></Link>
+                    <Link to='/courses'><Button>Courses</Button></Link>
                     {props.logout}
                     {props.updateProfile}
                     <Link to='/signup'>{props.signup}</Link>
