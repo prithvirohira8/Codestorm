@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,6 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { useAuth } from './Context/AuthContext';
+import app from './firebase';
 
 const drawerWidth = 240;
 
@@ -84,7 +85,36 @@ export default function Navbar(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [teacherids, setTeacherids] = useState();
+    const [studentids, setStudentids] = useState();
+    const [status, setStatus] = useState('');
     const { currentUser } = useAuth();
+
+    const undefined = async() => {
+        if(currentUser==null){
+            setStatus('null')
+        }
+        else{
+            const student_info_ref = app.database().ref('Students');
+            const student_info = [];
+            await student_info_ref.once('value').then((snapshot) => {
+                student_info.push(snapshot.val())
+            })
+            console.log("Student info array is ")
+            console.log(student_info)
+            console.log("Current user.uid is "+currentUser.uid)
+            setStatus('teacher')
+            for(let id in student_info[0]){
+                if(id==currentUser.uid){
+                    setStatus('student');
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        undefined();
+    }, [])
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -116,14 +146,14 @@ export default function Navbar(props) {
                     <Typography variant="h6" noWrap>
                         Codestorm Hackethon
                     </Typography>
-                    {
-                        currentUser ? <Link to='/students_dashboard'><Button>Home</Button></Link> :
-                        <Link to='/'><Button>Home</Button></Link>
-                    }
+                    {status=='null' && <Link to='/'><Button>Home</Button></Link>}
+                    {status=='student' && <Link to='/students_dashboard'><Button>Home</Button></Link>}
+                    {status=='teacher' && <Link to='/teachers_dashboard'><Button>Home</Button></Link>}
                     <Link to='/courses'><Button>Courses</Button></Link>
                     {props.logout}
                     {props.updateProfile}
-                    <Link to='/signup'>{props.signup}</Link>
+                    <Link to='/students_signup'>{props.signup}</Link>
+                    <Link to='/teachers_signup'>{props.teachers_signup}</Link>
                     <Link to='/Students_login'>{props.students_login}</Link>
                     <Link to='/Teachers_login'>{props.teachers_login}</Link>
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import Signup from './SignUp';
+import Signup from './Signup';
 import Students_login from './Students_login';
 import Teachers_login from './Teachers_login';
+import Teachers_Signup from './Teachers_Signup';
 import Course_Dashboard from './Course_Dashboard';
 import Students_dashboard from './Students_dashboard';
 import Teachers_dashboard from './Teachers_dashboard';
@@ -32,7 +33,8 @@ function App() {
           <Route exact path='/course_dashboard' component={Course_Dashboard} />
           <Route exact path='/forgot-password' component={ForgotPassword} />
           <Route exact path="/courses" component={Courses} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/students_signup" component={Signup} />
+          <Route exact path="/teachers_signup" component={Teachers_Signup} />
           <Route exact path="/students_login" component={Students_login} />
           <Route exact path="/teachers_login" component={Teachers_login} />
           <Route exact path="/forum" component={Forum} />

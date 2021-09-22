@@ -11,7 +11,8 @@ function Home_page() {
 	return (
 		<div>
 			<Navbar
-				signup={<Button>Sign Up</Button>}
+				signup={<Button>Students Sign Up</Button>}
+				teachers_signup={<Button>Teachers Sign Up</Button>}
 				students_login={<Button>Students Log In</Button>}
 				teachers_login={<Button>Teachers Log In</Button>}
 			/>
