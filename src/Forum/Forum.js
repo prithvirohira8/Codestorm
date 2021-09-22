@@ -5,8 +5,6 @@ import 'react-comments-section/dist/index.css'
 import { useAuth } from '../Context/AuthContext';
 import firebase from '../firebase';
 import app from '../firebase';
-import CustomInput from './CustomInput';
-import GetComments from './GetComments';
 
 const data1 = [
   {
