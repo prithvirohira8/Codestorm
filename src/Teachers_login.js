@@ -6,7 +6,6 @@ import { useAuth } from "./Context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "./firebase";
 import professor from "./images/professor.jpg";
-import "./SignUp.css";
 import app from "./firebase";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,35 +18,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Teachers_login() {
-	const [currentUser, setCurrentUser] = useState();
-	const classes = useStyles();
-	const emailRef = useRef();
-	const passwordRef = useRef();
-	const [loading, setLoading] = useState(false);
-	const { teachers_login } = useAuth();
-	const history = useHistory();
-	const [task, setTask] = useState(false);
+    const [currentUser, setCurrentUser] = useState();
+    const classes = useStyles();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const [loading, setLoading] = useState(false);
+    const { teachers_login } = useAuth();
+    const history = useHistory();
+    const [task, setTask] = useState(false);
 
-	if (task) {
-		console.log("Hello");
-		const student_info_ref = app.database().ref("Students/" + currentUser.uid);
-		const student_info = [];
 
-		student_info_ref.on("value", (snapshot) => {
-			student_info.push(snapshot.val());
-		});
+    if (task) {
+        console.log("Hello");
+        const student_id_ref = app.database().ref('Students');
+        const student_id = [];
 
-		setTimeout(() => {
-			if (student_info[0].Occupation == "student") {
-				alert("Access to teachers dashboard is denied!");
-				history.push("/");
-			} else {
-				setLoading(false);
-				history.push("/teachers_dashboard ");
-				window.location.reload();
-			}
-		}, 1000);
-	}
+        student_id_ref.on('value', (snapshot) => {
+            const ids = snapshot.val();
+            for(let id in ids){
+                student_id.push(id);
+            }
+            console.log(student_id);
+        })
+        setTimeout(() => {
+            if (student_id.includes(currentUser.uid)) {
+                alert("Access to teachers dashboard is denied!");
+                history.push('/')
+            }
+            else {
+                setLoading(false);
+                history.push('/teachers_dashboard ')
+                window.location.reload();
+            }
+        }, 1000);
+    }
 
 	async function handleSubmit(e) {
 		e.preventDefault();
