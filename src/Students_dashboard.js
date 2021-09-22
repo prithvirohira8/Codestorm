@@ -55,15 +55,11 @@ export default function Students_dashboard() {
     student_info_ref.on('value',(snapshot) => {
         student_info.push(snapshot.val())
     })
-    console.log(student_info)
-    setTimeout(() => {
-        setName(student_info[0].Name)
-        setLname(student_info[0].LastName)
-        setAge(student_info[0].Age)
-        setCollege(student_info[0].College)
-        setEmail(student_info[0].Email)
-    }, 500);
     
+    setTimeout(() => {
+        setLoading(true);
+        
+    }, 500);
 
     return (    
         <>
@@ -71,17 +67,30 @@ export default function Students_dashboard() {
                 logout={<Button onClick={handleLogout}>Log Out</Button>}
                 updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}
             />
-
-            <div>
-            <h1>Students Dashboard</h1>
-            <h2>Name: {Name}</h2>
-            <h2>Last Name: {Lname}</h2>
-            <h2>Age: {Age}</h2>
-            <h2>College: {College}</h2>
-            <h2>Email: {Email}</h2>
-
-            </div>
-
+            {
+                loading && Object.values(student_info).map((info,id) => 
+                <div>
+                    <h1>Students Dashboard</h1>
+                    <h2>Name: {info.Name}</h2>
+                    <h2>Last Name: {info.LastName}</h2>
+                    <h2>Age: {info.Age}</h2>
+                    <h2>College: {info.College}</h2>
+                    <h2>Email: {info.Email}</h2>
+                 </div>    
+            )}
+            
+            {loading && Object.values(student_info[0]).map((info,id) => 
+                <div>
+                    {info.Course_Name ? 
+                    <div>
+                        <h2>Course Name: {info.Course_Name}</h2>
+                        <h3>Date of Enrollment: {info.Date_Enrolled}</h3>
+                    </div>
+                    : ""
+                    }
+                    
+                </div> 
+            )}
         </>
     );
 }

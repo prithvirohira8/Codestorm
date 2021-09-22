@@ -2,6 +2,7 @@ import React from 'react';
 import Signup from './Signup';
 import Students_login from './Students_login';
 import Teachers_login from './Teachers_login';
+import Course_Dashboard from './Course_Dashboard';
 import Students_dashboard from './Students_dashboard';
 import Teachers_dashboard from './Teachers_dashboard';
 import PrivateRoute from './PrivateRoute';
@@ -16,8 +17,8 @@ import {
   Route
 } from "react-router-dom";
 
-function App() {
 
+function App() {
 
   return (
     <Router>
@@ -27,6 +28,7 @@ function App() {
           <PrivateRoute exact path='/students_dashboard' component={Students_dashboard} />
           <PrivateRoute exact path='/teachers_dashboard' component={Teachers_dashboard} />
           <PrivateRoute exact path='/updateProfile' component={UpdateProfile} />
+          <Route exact path='/course_dashboard' component={Course_Dashboard} />
           <Route exact path='/forgot-password' component={ForgotPassword} />
           <Route exact path="/courses" component={Courses} />
           <Route exact path="/signup" component={Signup} />

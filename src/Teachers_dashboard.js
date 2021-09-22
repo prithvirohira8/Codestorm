@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { useAuth } from './Context/AuthContext';
 import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,10 +60,9 @@ export default function Teachers_dashboard() {
     teacher_info_ref.on('value',(snapshot) => {
         teacher_info.push(snapshot.val())
     })
-
     setTimeout(() => {
         setName(teacher_info[0].Name)
-    }, 1000);
+    }, 1500);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -71,7 +70,11 @@ export default function Teachers_dashboard() {
         setCourseName(CourseNameRef.current.value)
         const Course_info = {
             Name: CourseNameRef.current.value,
-            Description: CourseDescriptionRef.current.value
+            Description: CourseDescriptionRef.current.value,
+            Forum: [1,2,3],
+            VideoTitle: "", 
+            VideoDescription: "",      
+            VideoLink: ""
         }
         Course_Ref.child('Course_Details').set(Course_info)
         setCreateCourse(true);
@@ -81,9 +84,9 @@ export default function Teachers_dashboard() {
         e.preventDefault();
         const Topic_Ref = app.database().ref('Courses/'+CourseName)
         const Topic_info = {
-            Name: CourseTopicNameRef.current.value,
-            Description: TopicDescriptionRef.current.value,
-            Video: VideoLinkRef.current.value
+            VideoTitle: CourseTopicNameRef.current.value,
+            VideoDescription: TopicDescriptionRef.current.value,
+            VideoLink: VideoLinkRef.current.value,
         }
         Topic_Ref.push(Topic_info)
         setCreateCourse(true);
@@ -107,13 +110,13 @@ export default function Teachers_dashboard() {
                 (
                     <div>
                         <form onSubmit={handleSubmit1} className={classes.root} >
-                        <TextField id="outlined-basic" label="Topic Name" variant="outlined" value={}  required inputRef={CourseTopicNameRef} />
+                        <TextField id="outlined-basic" label="Topic Name" variant="outlined"  required inputRef={CourseTopicNameRef} />
                         <br />
                         <br /> 
-                        <TextField id="outlined-basic" label="Topic Description" variant="outlined" value={} required inputRef={TopicDescriptionRef} />
+                        <TextField id="outlined-basic" label="Topic Description" variant="outlined" required inputRef={TopicDescriptionRef} />
                         <br />
                         <br />  
-                        <TextField id="outlined-basic" label="Video Link" variant="outlined" value={} required inputRef={VideoLinkRef} />
+                        <TextField id="outlined-basic" label="Video Link" variant="outlined" required inputRef={VideoLinkRef} />
                         <br /> 
                         <br />
                         <Button type='submit' disabled={loading} variant="contained" color="secondary">
@@ -130,10 +133,10 @@ export default function Teachers_dashboard() {
                 :
                 (
                     <form onSubmit={handleSubmit} className={classes.root} >
-                     <TextField id="outlined-basic" label="Course Name" variant="outlined" value={} required inputRef={CourseNameRef} />
+                     <TextField id="outlined-basic" label="Course Name" variant="outlined" required inputRef={CourseNameRef} />
                      <br />
                      <br />
-                     <TextField id="outlined-basic" label="Description" variant="outlined" value={} required inputRef={CourseDescriptionRef} />
+                     <TextField id="outlined-basic" label="Description" variant="outlined" required inputRef={CourseDescriptionRef} />
                      <br /> 
                      <br />
                      <Button type='submit' disabled={loading} variant="contained" color="secondary">
