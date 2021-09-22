@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './Signup';
+import Signup from './SignUp';
 import Students_login from './Students_login';
 import Teachers_login from './Teachers_login';
 import Students_dashboard from './Students_dashboard';
@@ -16,6 +16,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import Forum from './Forum/Forum';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/students_login" component={Students_login} />
           <Route exact path="/teachers_login" component={Teachers_login} />
+          <Route exact path="/forum" component={Forum} />
         </Switch>
       </AuthProvider>
     </Router>

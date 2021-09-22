@@ -68,7 +68,7 @@ export default function Students_dashboard() {
         setAge(student_info[0].Age)
         setCollege(student_info[0].College)
         setEmail(student_info[0].Email)
-    }, 500);
+    }, 1000);
     
 
     return (    
