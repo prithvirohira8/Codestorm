@@ -55,14 +55,18 @@ export default function Teachers_dashboard() {
         }
     }
 
-    const teacher_info_ref = app.database().ref('Teachers/'+currentUser.uid)
-    const teacher_info = []
-    teacher_info_ref.on('value',(snapshot) => {
+    const undefined = async() => {
+        const teacher_info_ref = app.database().ref('Teachers/'+currentUser.uid)
+        const teacher_info = []
+        await teacher_info_ref.once('value').then((snapshot) => {
         teacher_info.push(snapshot.val())
-    })
-    setTimeout(() => {
+        })
         setName(teacher_info[0].Name)
-    }, 1500);
+    }
+
+      useEffect(() => {
+          undefined();
+      }, [])
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -74,7 +78,9 @@ export default function Teachers_dashboard() {
             Forum: [1,2,3],
             VideoTitle: "", 
             VideoDescription: "",      
-            VideoLink: ""
+            VideoLink: "",
+            no_of_likes: 0,
+            No_of_students_enrolled: 0
         }
         Course_Ref.child('Course_Details').set(Course_info)
         setCreateCourse(true);

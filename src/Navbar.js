@@ -18,8 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Button from '@material-ui/core/Button';
-
 import { Link } from 'react-router-dom';
+import { useAuth } from './Context/AuthContext';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -83,6 +84,7 @@ export default function Navbar(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const { currentUser } = useAuth();
 
 
     const handleDrawerOpen = () => {
@@ -115,8 +117,10 @@ export default function Navbar(props) {
                     <Typography variant="h6" noWrap>
                         Codestorm Hackethon
                     </Typography>
-
-                    <Link to='/'><Button>Home</Button></Link>
+                    {
+                        currentUser ? <Link to='/students_dashboard'><Button>Home</Button></Link> :
+                        <Link to='/'><Button>Home</Button></Link>
+                    }
                     <Link to='/courses'><Button>Courses</Button></Link>
                     {props.logout}
                     {props.updateProfile}

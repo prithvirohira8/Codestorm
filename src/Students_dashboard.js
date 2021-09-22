@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import app from './firebase';
+import firebase from './firebase';
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 export default function Students_dashboard() {
+
     const { logout, currentUser } = useAuth();
     const history = useHistory();
     const [button, setButton] = useState("");
@@ -38,8 +40,12 @@ export default function Students_dashboard() {
     const [Age, setAge] = useState("");
     const [College, setCollege] = useState("");
     const [Email, setEmail] = useState("");
-
-
+    const [course_name, setcourse_name] = useState("");
+    const [explore, setExplore] = useState();
+    const [courses, setcourses] = useState();
+    const [Student_Profile, setStudent_Profile] = useState();
+    const [StudentCourse, setStudentCourse] = useState();
+    const [render, Setrender] = useState();
     async function handleLogout() {
         try {
             await logout();
@@ -50,47 +56,120 @@ export default function Students_dashboard() {
         }
     }
 
-    const student_info_ref = app.database().ref('Students/'+currentUser.uid)
-    const student_info = []
-    student_info_ref.on('value',(snapshot) => {
-        student_info.push(snapshot.val())
-    })
-    
-    setTimeout(() => {
-        setLoading(true);
-        
-    }, 500);
+    const student_info = [];
+    const student_course_info = [];
+    const studentinformation = async () => {
+        const student_info_ref = app.database().ref('Students/' + currentUser.uid);
+        await student_info_ref.once('value').then((snapshot) => {
+            student_info.push(snapshot.val());
+            setStudent_Profile(student_info);
+            setLoading(true);
+        })
+    }
 
-    return (    
+    const student_course_information = async () => {
+        const course_info_ref = app.database().ref('Courses/' + course_name);
+        await course_info_ref.once('value').then((snapshot) => {
+            student_course_info.push(snapshot.val());
+            setStudentCourse(student_course_info);
+
+            console.log(StudentCourse);
+        })
+    }
+
+
+    useEffect(() => {
+        studentinformation();
+
+
+
+    }, [])
+
+    useEffect(() => {
+        student_course_information();
+
+
+
+    }, [course_name])
+
+    return (
         <>
             <Navbar
                 logout={<Button onClick={handleLogout}>Log Out</Button>}
                 updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}
             />
-            {
-                loading && Object.values(student_info).map((info,id) => 
-                <div>
-                    <h1>Students Dashboard</h1>
-                    <h2>Name: {info.Name}</h2>
-                    <h2>Last Name: {info.LastName}</h2>
-                    <h2>Age: {info.Age}</h2>
-                    <h2>College: {info.College}</h2>
-                    <h2>Email: {info.Email}</h2>
-                 </div>    
-            )}
-            
-            {loading && Object.values(student_info[0]).map((info,id) => 
-                <div>
-                    {info.Course_Name ? 
-                    <div>
-                        <h2>Course Name: {info.Course_Name}</h2>
-                        <h3>Date of Enrollment: {info.Date_Enrolled}</h3>
-                    </div>
-                    : ""
+            {explore ? (
+
+                <>
+
+                    <h1>jhkj</h1>
+
+                    {StudentCourse && Object.values(StudentCourse[0]).map((course, id) =>
+                        <div>
+                            <h2>{course.VideoTitle}</h2>
+                            <h3>{course.VideoDescription}</h3>
+                            <h3>{course.VideoLink}</h3>
+
+                        </div>
+                    )
+
                     }
-                    
-                </div> 
+
+                    <Button onClick={(e) => {
+
+                        setExplore(false)
+
+                    }} variant="contained" color="secondary" >go back</Button>
+
+
+                </>
+            ) : (
+
+                <>
+
+                    {
+                        loading && Object.values(Student_Profile).map((info, id) =>
+                            <div>
+                                <h1>Students Dashboard</h1>
+                                <h2>Name: {info.Name}</h2>
+                                <h2>Last Name: {info.LastName}</h2>
+                                <h2>Age: {info.Age}</h2>
+                                <h2>College: {info.College}</h2>
+                                <h2>Email: {info.Email}</h2>
+                            </div>
+                        )}
+
+                    {loading && Object.values(Student_Profile[0]).map((info, id) =>
+                        <div>
+                            {info.Course_Name ?
+                                <div>
+
+                                    <h2>Course Name: {info.Course_Name}</h2>
+                                    <h3>Date of Enrollment: {info.Date_Enrolled}</h3>
+                                    <Button onClick={(e) => {
+                                        setcourse_name(info.Course_Name)
+                                        setExplore(true)
+                                        console.log(course_name)
+                                        // student_course_information();
+                                        //student_course_information();
+
+
+
+
+                                    }} variant="contained" color="secondary" >Explore</Button>
+                                    <br />
+
+                                </div>
+                                : ""
+                            }
+
+                        </div>
+                    )}
+                </>
+
             )}
+
+
         </>
     );
 }

@@ -14,21 +14,21 @@ export default function Courses() {
     const { currentUser } = useAuth();
     const history = useHistory();
 
-    useEffect(() => {
+    const undefined = async() => {
         const Courses_Ref = firebase.database().ref('Courses');
         const courseList = [];
-        Courses_Ref.on('value',(snapshot) => {
+        Courses_Ref.once('value').then((snapshot) => {
             const courses = snapshot.val();
             for(let id in courses){
                 courseList.push({id, ...courses[id]})
             }
             setcourses(courseList)
         });
-    }, [])
-
-    function enroll(){
-        
     }
+
+    useEffect(() => {
+        undefined()
+    }, [])
 
     return (
         <>
@@ -52,7 +52,7 @@ export default function Courses() {
                                 }
                                 console.log(student_id);
                             })
-                            if(!student_id.includes(currentUser.uid)){
+                            if(currentUser==null){
                                 history.push('/students_login')
                             }
                             else{
@@ -88,6 +88,8 @@ export default function Courses() {
                     <div>
                         <h2>Course Name: {course.Course_Details.Name}</h2>
                         <h2>Description: {course.Course_Details.Description}</h2>
+                        <h5>Users enrolled: {course.Course_Details.no_of_students}</h5>
+                        <h5>Likes: {course.Course_Details.no_of_likes}</h5>
                         <Button onClick={() => {
                             setcourse_id(id);
                             setcourse_description(true);
@@ -96,10 +98,8 @@ export default function Courses() {
                         <br/>
                     </div>
                     )
-                 )
-                 
+                 )   
              }
-             
         </>
     )
 }
