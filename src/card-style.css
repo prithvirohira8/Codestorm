@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap");
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.card {
+	width: 20rem;
+}
+
+.card:hover {
+	box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.253) !important;
+}
+
+.card-title {
+	font-family: Alfa Slab One;
+}
+
+.card-body {
+	padding: 3rem 0 !important;
+}
+
+.card-text {
+	font-size: 9rem;
+	padding: 0.4rem 1.9rem;
+}
+
+.container-fluid.row {
+	padding-top: 6rem;
+}
+
+.row1 {
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+@media (max-width: 991px) {
+	.card {
+		margin-left: 5.5rem;
+	}
+}
