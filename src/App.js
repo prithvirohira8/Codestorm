@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './Signup';
+import Signup from './SignUp';
 import Students_login from './Students_login';
 import Teachers_login from './Teachers_login';
 import Teachers_Signup from './Teachers_Signup';

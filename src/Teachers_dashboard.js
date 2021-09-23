@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import app from './firebase';
 import TextField from '@material-ui/core/TextField';
+import Quiz from './Quiz';
 
 const useStyles = makeStyles({
 	root: {
@@ -130,6 +131,8 @@ export default function Teachers_dashboard() {
                         </form>
                         <br /> 
                         <br />
+                       
+                        <Quiz CourseName={CourseName} />
                         <Button onClick={push} disabled={loading} variant="contained" color="secondary">
                           Add Course
                         </Button>
