@@ -43,6 +43,7 @@ export default function Teachers_dashboard() {
     const [loading, setLoading] = useState(false);
     const [button, setButton] = useState("");
     const [CourseName, setCourseName] = useState("");
+    const [view_course,setView_course] = useState(false);
 
     async function handleLogout() {
         try {
@@ -71,17 +72,28 @@ export default function Teachers_dashboard() {
         e.preventDefault();
         const Course_Ref = app.database().ref('Courses/'+CourseNameRef.current.value)
         setCourseName(CourseNameRef.current.value)
+        const current = new Date();
+        const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
         const Course_info = {
             Name: CourseNameRef.current.value,
             Description: CourseDescriptionRef.current.value,
-            Forum: [1,2,3],
+            Forum: [],
             VideoTitle: "", 
             VideoDescription: "",      
             VideoLink: "",
             no_of_likes: 0,
-            No_of_students_enrolled: 0
+            No_of_students_enrolled: 0,
+            AuthorUID: currentUser.uid,
+            AuthorName:  name,
+            DateofCreation: date
         }
         Course_Ref.child('Course_Details').set(Course_info)
+
+        const teachers_course_Ref = app.database().ref('Teachers')
+        const teachers_course_details = {
+            Name: CourseNameRef.current.value
+        }
+        teachers_course_Ref.child('MyCourses').value(teachers_course_details)
         setCreateCourse(true);
      }
 
@@ -92,6 +104,7 @@ export default function Teachers_dashboard() {
             VideoTitle: CourseTopicNameRef.current.value,
             VideoDescription: TopicDescriptionRef.current.value,
             VideoLink: VideoLinkRef.current.value,
+            Quiz: ""
         }
         Topic_Ref.push(Topic_info)
         setCreateCourse(true);
@@ -101,6 +114,9 @@ export default function Teachers_dashboard() {
          setCreateCourse(false);
      }
 
+     async function viewcourse(){
+         
+     }
     return (
         <>
             <Navbar
@@ -147,8 +163,17 @@ export default function Teachers_dashboard() {
                      <Button type='submit' disabled={loading} variant="contained" color="secondary">
                         Create Course
                      </Button>
+                     <br /> 
+                     <br />
                      </form>
                 )
+            }
+            {
+                !view_course ?
+                <Button onClick={viewcourse} variant="contained" color="secondary">
+                    View Courses
+                </Button>
+                :""
             }
         </>
     );

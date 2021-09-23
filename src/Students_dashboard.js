@@ -46,6 +46,8 @@ export default function Students_dashboard() {
     const [Student_Profile, setStudent_Profile] = useState();
     const [StudentCourse, setStudentCourse] = useState();
     const [render, Setrender] = useState();
+    const [likeStatus,setLikeStatus] = useState(false);
+
     async function handleLogout() {
         try {
             await logout();
@@ -72,17 +74,57 @@ export default function Students_dashboard() {
         await course_info_ref.once('value').then((snapshot) => {
             student_course_info.push(snapshot.val());
             setStudentCourse(student_course_info);
-
-            console.log(StudentCourse);
         })
     }
 
+    async function delete_course(){
+        const student_info_ref = app.database().ref('Students/'+currentUser.uid+'/MyCourses');
+        const delete_course = [];
+        await student_info_ref.once('value').then((snapshot) => {
+            delete_course.push(snapshot.val());
+        })
+        console.log(delete_course);
+        console.log( Object.keys(delete_course[0]));
+        console.log( Object.values(delete_course[0]));
+        const course_keys =  Object.keys(delete_course[0])
+        
+        Object.values(delete_course[0]).map((course,id) => {
+            if(course.Course_Name==course_name){
+                const course_ref_delete = app.database().ref('Students/'+currentUser.uid+'/MyCourses/'+course_keys[id]);
+                course_ref_delete.remove();
+            }
+        })
+    }
+
+    async function upvote_course(){
+            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
+            var course_ref_info = [];
+            await course_ref.once('value').then((snapshot) => {
+                course_ref_info.push(snapshot.val());
+            })
+            console.log(course_ref_info)
+            var y =  course_ref_info[0].No_of_students_enrolled;
+            var x =  course_ref_info[0].no_of_likes;
+            course_ref.update({
+                no_of_likes: x + 1
+            }) 
+    }
+
+    async function downvote_course(){
+            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
+            var course_ref_info = [];
+            await course_ref.once('value').then((snapshot) => {
+                course_ref_info.push(snapshot.val());
+            })
+            console.log(course_ref_info)
+            var x =  course_ref_info[0].no_of_likes;
+            course_ref.update({
+                no_of_likes: x - 1  
+            }) 
+    }
 
     useEffect(() => {
         studentinformation();
-
-
-
     }, [])
 
     useEffect(() => {
@@ -120,8 +162,6 @@ export default function Students_dashboard() {
                         setExplore(false)
 
                     }} variant="contained" color="secondary" >go back</Button>
-
-
                 </>
             ) : (
 
@@ -139,37 +179,42 @@ export default function Students_dashboard() {
                             </div>
                         )}
 
-                    {loading && Object.values(Student_Profile[0]).map((info, id) =>
+                    {loading && Object.values(Student_Profile[0].MyCourses).map((info, id) =>
                         <div>
-                            {info.Course_Name ?
+                            {info.Course_Name && info.Course_Name!="" ?
                                 <div>
-
                                     <h2>Course Name: {info.Course_Name}</h2>
                                     <h3>Date of Enrollment: {info.Date_Enrolled}</h3>
                                     <Button onClick={(e) => {
                                         setcourse_name(info.Course_Name)
                                         setExplore(true)
-                                        console.log(course_name)
-                                        // student_course_information();
-                                        //student_course_information();
-
-
-
-
                                     }} variant="contained" color="secondary" >Explore</Button>
+                                    {
+                                        likeStatus ? <Button onClick={(e) => {
+                                            setLikeStatus(false);
+                                            setcourse_name(info.Course_Name);
+                                            downvote_course()
+                                        }} variant="contained" color="secondary" >Downvote Course</Button>
+                                        : <Button onClick={(e) => {
+                                            setLikeStatus(true);
+                                            setcourse_name(info.Course_Name);
+                                            upvote_course();
+                                        }} variant="contained" color="secondary" >Upvote Course</Button>
+                                    }
+                                    
+                                    <Button onClick={(e) => {
+                                        setcourse_name(info.Course_Name);
+                                        delete_course()
+                                    }} variant="contained" color="secondary" >Discontinue Course</Button>
                                     <br />
-
                                 </div>
                                 : ""
                             }
-
                         </div>
                     )}
                 </>
 
             )}
-
-
         </>
     );
 }
