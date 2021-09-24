@@ -100,9 +100,7 @@ export default function Navbar(props) {
             await student_info_ref.once('value').then((snapshot) => {
                 student_info.push(snapshot.val())
             })
-            console.log("Student info array is ")
-            console.log(student_info)
-            console.log("Current user.uid is "+currentUser.uid)
+            
             setStatus('teacher')
             for(let id in student_info[0]){
                 if(id==currentUser.uid){

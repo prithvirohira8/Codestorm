@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './Signup';
+import Signup from './SignUp';
 import Students_login from './Students_login';
 import Teachers_login from './Teachers_login';
 import Teachers_Signup from './Teachers_Signup';
@@ -12,6 +12,7 @@ import UpdateProfile from './UpdateProfile';
 import { AuthProvider } from './Context/AuthContext';
 import Home_page from './Home_page'
 import Courses from './Courses'
+import DisplayCourse from './DisplayCourse'
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,7 +28,8 @@ function App() {
       <AuthProvider>
         <Switch>
           <Route exact path='/' component={Home_page} />
-          <PrivateRoute exact path='/students_dashboard' component={Students_dashboard} />
+          <PrivateRoute exact path='/students_dashboard' exact component={Students_dashboard} />
+          <PrivateRoute exact path='/students_dashboard/:course_name' component={DisplayCourse} />
           <PrivateRoute exact path='/teachers_dashboard' component={Teachers_dashboard} />
           <PrivateRoute exact path='/updateProfile' component={UpdateProfile} />
           <Route exact path='/course_dashboard' component={Course_Dashboard} />
