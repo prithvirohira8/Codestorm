@@ -49,11 +49,11 @@ const DisplayCourse = ({ match }) => {
               
               <DisplayQuiz course_name={match.params.course_name}/>
                 <Link to="/students_dashboard">
-                
-                 <Button onClick={(e) => {
-  
-
-                    }} variant="contained" color="secondary" >go back</Button></Link>      
+                    <Button variant="contained" color="secondary" >go back</Button>
+                </Link>      
+                <Link to={`/forum/${match.params.course_name}`} >
+                    <Button variant="contained" color="secondary" >Forum</Button>
+                </Link>
         </div>
     )
 }

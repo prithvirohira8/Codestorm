@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/teachers_signup" component={Teachers_Signup} />
           <Route exact path="/students_login" component={Students_login} />
           <Route exact path="/teachers_login" component={Teachers_login} />
-          <Route exact path="/forum" component={Forum} />
+          <Route exact path="/forum/:course_name" component={Forum} />
         </Switch>
       </AuthProvider>
     </Router>

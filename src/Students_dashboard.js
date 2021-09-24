@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import app from "./firebase";
 import firebase from "./firebase";
 import ReactPlayer from 'react-player';
+import Forum from './Forum/Forum';
+
 
 
 import Quiz from 'react-quiz-component';
@@ -70,6 +72,51 @@ export default function Students_dashboard() {
 			setLoading(true);
 		});
 	};
+  
+  async function delete_course(){
+        const student_info_ref = app.database().ref('Students/'+currentUser.uid+'/MyCourses');
+        const delete_course = [];
+        await student_info_ref.once('value').then((snapshot) => {
+            delete_course.push(snapshot.val());
+        })
+       
+        const course_keys =  Object.keys(delete_course[0])
+        
+        Object.values(delete_course[0]).map((course,id) => {
+            if(course.Course_Name==course_name){
+                const course_ref_delete = app.database().ref('Students/'+currentUser.uid+'/MyCourses/'+course_keys[id]);
+                course_ref_delete.remove();
+            }
+        })
+    }
+ 
+     
+    async function upvote_course(){
+            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
+            var course_ref_info = [];
+            await course_ref.once('value').then((snapshot) => {
+                course_ref_info = (snapshot.val());
+            })
+           
+            var y =  course_ref_info.No_of_students_enrolled;
+            var x =  course_ref_info.no_of_likes;
+            course_ref.update({
+                no_of_likes: x + 1
+            }) 
+    }
+
+    async function downvote_course(){
+            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
+            var course_ref_info = [];
+            await course_ref.once('value').then((snapshot) => {
+                course_ref_info = (snapshot.val());
+            })
+         
+            var x =  course_ref_info.no_of_likes;
+            course_ref.update({
+                no_of_likes: x - 1  
+            }) 
+    }
 
 	const student_course_information = async () => {
 		const course_info_ref = app.database().ref("Courses/" + course_name);
@@ -99,6 +146,9 @@ export default function Students_dashboard() {
 					</Button>
 				}
 			/>
+       <Link to={`/forum/${course_name}`} >
+                        <Button variant="contained" color="secondary" >Go to Forum</Button>
+                    </Link>
 			{explore ? (
 				<>
 					<h1>Course Material</h1>
@@ -166,6 +216,7 @@ export default function Students_dashboard() {
 												<Typography variant="h5" component="div">
 													Date of Enrollment: {info.Date_Enrolled}
 												</Typography>
+                        <Link to={`/students_dashboard/${info.Course_Name}`}>
 											</CardContent>
 											<CardActions>
 												<Button
@@ -192,3 +243,4 @@ export default function Students_dashboard() {
 		</>
 	);
 }
+
