@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import app from './firebase';
 import firebase from './firebase';
+import Forum from './Forum/Forum';
 
 const useStyles = makeStyles({
     root: {
@@ -120,6 +121,10 @@ export default function Students_dashboard() {
                         setExplore(false)
 
                     }} variant="contained" color="secondary" >go back</Button>
+
+                    <Link to={`/forum/${course_name}`} >
+                        <Button variant="contained" color="secondary" >Go to Forum</Button>
+                    </Link>
 
 
                 </>
