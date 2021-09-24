@@ -1,0 +1,22 @@
+
+
+.stage-container {
+    padding: 2rem;;
+}
+
+/* .videos-wrapper {
+    text-align: center;
+} */
+
+.videos-wrapper h2 {
+    margin-bottom: 1rem;
+}
+
+.video {
+    margin: 2.5rem auto;
+    padding-left: 2.5rem;
+}
+
+.resources {
+    padding: 1rem;
+}

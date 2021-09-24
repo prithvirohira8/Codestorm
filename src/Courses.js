@@ -12,6 +12,8 @@ import { Link, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import "./Learn_More.css";
 import "./Courses.css";
+import FooterNew from './FooterNew';
+import './Footer.css'
 
 export default function Courses() {
 	const [courses, setcourses] = useState();
@@ -31,6 +33,46 @@ export default function Courses() {
 			setcourses(courseList);
 		});
 	};
+
+	async function enroll() {
+		var student_id_ref = firebase.database().ref("Students");
+		const student_id = [];
+
+		await student_id_ref.once("value", (snapshot) => {
+			const ids = snapshot.val();
+			for (let id in ids) {
+				student_id.push(id);
+			}
+			console.log(student_id);
+		});
+		if (currentUser == null) {
+			history.push("/students_login");
+		} else {
+			student_id_ref = firebase.database().ref("Students/" + currentUser.uid);
+			const current = new Date();
+			const date = `${current.getDate()}/${current.getMonth() + 1
+				}/${current.getFullYear()}`;
+			const student_course_data = {
+				Course_Name: courses[course_id].Course_Details.Name,
+				Date_Enrolled: date,
+				Upvote_Status: false
+			};
+			student_id_ref.push(student_course_data);
+
+			var c_ref = firebase.database().ref("Courses/" + courses[course_id].Course_Details.Name+"/Course_Details");
+			console.log("c_ref = "+c_ref)
+			var c_ref_obj;
+			await c_ref.once('value').then((snapshot) =>{
+				c_ref_obj = snapshot.val()
+			})
+			console.log(c_ref_obj.No_of_students_enrolled	)
+			c_ref.update({
+				No_of_students_enrolled: c_ref_obj.No_of_students_enrolled+1
+			})
+			{ window.alert('You have successfully enrolled for the course') }
+			setcourse_description(false);
+		}
+	}
 
 	useEffect(() => {
 		undefined();
@@ -69,7 +111,7 @@ export default function Courses() {
 						))}
 
 
-                    &nbsp;
+					&nbsp;
 					&nbsp;
 					<Button
 						onClick={() => {
@@ -84,33 +126,7 @@ export default function Courses() {
 					&nbsp;
 					&nbsp;
 					<Button
-						onClick={() => {
-							var student_id_ref = firebase.database().ref("Students");
-							const student_id = [];
-
-							student_id_ref.on("value", (snapshot) => {
-								const ids = snapshot.val();
-								for (let id in ids) {
-									student_id.push(id);
-								}
-								console.log(student_id);
-							});
-							if (currentUser == null) {
-								history.push("/students_login");
-							} else {
-								student_id_ref = firebase.database().ref("Students/" + currentUser.uid);
-								const current = new Date();
-								const date = `${current.getDate()}/${current.getMonth() + 1
-									}/${current.getFullYear()}`;
-								const student_course_data = {
-									Course_Name: courses[course_id].Course_Details.Name,
-									Date_Enrolled: date,
-								};
-								student_id_ref.push(student_course_data);
-								{ window.alert('You have successfully enrolled for the course') }
-								setcourse_description(false);
-							}
-						}}
+						onClick={enroll}
 						variant="contained"
 						color="secondary"
 					>
@@ -131,7 +147,7 @@ export default function Courses() {
 								<div className="card-body1">
 									<h5>Description: {course.Course_Details.Description}</h5>
 									<h5>
-										Users enrolled: {course.Course_Details.no_of_students}
+										Users enrolled: {course.Course_Details.No_of_students_enrolled}
 									</h5>
 									<h5>Likes: {course.Course_Details.no_of_likes}</h5>
 
@@ -152,6 +168,7 @@ export default function Courses() {
 							<br />
 							<br />
 						</div>
+						<FooterNew />
 					</div>
 				))
 			)}

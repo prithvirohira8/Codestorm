@@ -13,6 +13,7 @@ import { AuthProvider } from './Context/AuthContext';
 import Home_page from './Home_page'
 import Courses from './Courses'
 import DisplayCourse from './DisplayCourse'
+import Mycourse from './Mycourse'
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,6 +36,7 @@ function App() {
           <Route exact path='/course_dashboard' component={Course_Dashboard} />
           <Route exact path='/forgot-password' component={ForgotPassword} />
           <Route exact path="/courses" component={Courses} />
+          <Route exact path="/Mycourse" component={Mycourse} />
           <Route exact path="/students_signup" component={Signup} />
           <Route exact path="/teachers_signup" component={Teachers_Signup} />
           <Route exact path="/students_login" component={Students_login} />

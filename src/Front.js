@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Container, Grid } from "@material-ui/core";
 import online from "./images/online.png";
 import { useAuth } from "./Context/AuthContext";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -14,6 +14,11 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
 import "./Front.css";
 import "./App.css";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route
+} from "react-router-dom";
 
 const StyledMenu = withStyles({
 	paper: {
@@ -70,14 +75,21 @@ function Front() {
 						</div>
 						<div className="col-sm">
 							<div className="content">
+							<h1>Devsera </h1>
 								<h1>Explore all Full Stack  Courses in one place</h1>
 								<h2>
 									Learn Full Stack Devevlopment the right way!
 								</h2>
 							</div>
 							<br></br>
-							<Button variant="contained" color="secondary">Start your Web Development Journey! </Button>
-						</div>	
+
+							<Button variant="contained" color="secondary"><Link to="/Mycourse">Start your Web Development Journey! </Link></Button>
+
+							{/* <Button>
+                    <Link to="/updateProfile">Update Profile</Link>
+                </Button> */}
+
+						</div>
 					</div>
 				</div>
 			</div>

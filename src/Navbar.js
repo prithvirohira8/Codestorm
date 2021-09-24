@@ -142,7 +142,7 @@ export default function Navbar(props) {
 						<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" noWrap>
-						Codestorm Hackethon
+						Devsera  
 					</Typography>
 					{status == "null" && (
 						<Link to="/">

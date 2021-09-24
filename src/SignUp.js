@@ -18,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
 	const [currentUser, setCurrentUser] = useState();
-	const { signup, changecurrentUser } = useAuth();
+	const { signup } = useAuth();
 	const classes = useStyles();
 	const NameRef = useRef();
 	const LastnameRef = useRef();
-	const YearRef = useRef();
 	const AgeRef = useRef();
 	const CollegeRef = useRef();
 	const emailRef = useRef();
@@ -52,12 +51,19 @@ export default function Signup() {
 		}
 	}
 
+	function changecurrentUser(){
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setCurrentUser(user);
+            setLoading(false);
+        })
+        return unsubscribe;
+    }
+
     if (task) {
         const StudentRef = firebase.database().ref('Students')
         const Studentinfo = {
             Name: NameRef.current.value,
             LastName: LastnameRef.current.value,
-            Year: YearRef.current.value,
             Age: AgeRef.current.value,
             College: CollegeRef.current.value,
             Email: emailRef.current.value,
@@ -67,7 +73,8 @@ export default function Signup() {
         const MycoursesRef = firebase.database().ref('Students/'+currentUser.uid)
         const MyCourseinfo = {
             Course_Name: "",
-            Date_Enrolled: ""
+            Date_Enrolled: "",
+			Upvote_Status: false
         }
         MycoursesRef.child('MyCourses').set(MyCourseinfo);
         history.push('/students_dashboard');
@@ -78,7 +85,6 @@ export default function Signup() {
 		const Studentinfo = {
 			Name: NameRef.current.value,
 			LastName: LastnameRef.current.value,
-			Year: YearRef.current.value,
 			Age: AgeRef.current.value,
 			College: CollegeRef.current.value,
 			Email: emailRef.current.value,
@@ -107,14 +113,6 @@ export default function Signup() {
 							variant="standard"
 							required
 							inputRef={LastnameRef}
-						/>
-						<br />
-						<TextField
-							id="outlined-basic"
-							label="Year"
-							variant="standard"
-							required
-							inputRef={YearRef}
 						/>
 						<br />
 						<TextField

@@ -14,6 +14,9 @@ import app from "./firebase";
 import firebase from "./firebase";
 import ReactPlayer from 'react-player';
 import Forum from './Forum/Forum';
+import './anchor.css';
+import FooterNew from './FooterNew';
+import './Footer.css'
 
 
 
@@ -49,10 +52,10 @@ export default function Students_dashboard() {
 	const [Email, setEmail] = useState("");
 	const [course_name, setcourse_name] = useState("");
 	const [explore, setExplore] = useState();
-	const [courses, setcourses] = useState();
 	const [Student_Profile, setStudent_Profile] = useState();
 	const [StudentCourse, setStudentCourse] = useState();
-	const [render, Setrender] = useState();
+	// const [upvote, setUpvote] = useState(false);
+
 	async function handleLogout() {
 		try {
 			await logout();
@@ -71,52 +74,105 @@ export default function Students_dashboard() {
 			setStudent_Profile(student_info);
 			setLoading(true);
 		});
+		
 	};
-  
-  async function delete_course(){
-        const student_info_ref = app.database().ref('Students/'+currentUser.uid+'/MyCourses');
-        const delete_course = [];
-        await student_info_ref.once('value').then((snapshot) => {
-            delete_course.push(snapshot.val());
-        })
-       
-        const course_keys =  Object.keys(delete_course[0])
-        
-        Object.values(delete_course[0]).map((course,id) => {
-            if(course.Course_Name==course_name){
-                const course_ref_delete = app.database().ref('Students/'+currentUser.uid+'/MyCourses/'+course_keys[id]);
-                course_ref_delete.remove();
-            }
-        })
-    }
- 
-     
-    async function upvote_course(){
-            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
-            var course_ref_info = [];
-            await course_ref.once('value').then((snapshot) => {
-                course_ref_info = (snapshot.val());
-            })
-           
-            var y =  course_ref_info.No_of_students_enrolled;
-            var x =  course_ref_info.no_of_likes;
-            course_ref.update({
-                no_of_likes: x + 1
-            }) 
-    }
 
-    async function downvote_course(){
-            var course_ref  = firebase.database().ref('Courses/'+course_name+'/Course_Details'); 
-            var course_ref_info = [];
-            await course_ref.once('value').then((snapshot) => {
-                course_ref_info = (snapshot.val());
-            })
-         
-            var x =  course_ref_info.no_of_likes;
-            course_ref.update({
-                no_of_likes: x - 1  
-            }) 
-    }
+	// async function delete_course() {
+	// 	const student_info_ref = app.database().ref('Students/' + currentUser.uid + '/MyCourses');
+	// 	const delete_course = [];
+	// 	await student_info_ref.once('value').then((snapshot) => {
+	// 		delete_course.push(snapshot.val());
+	// 	})
+
+	// 	const course_keys = Object.keys(delete_course[0])
+
+	// 	Object.values(delete_course[0]).map((course, id) => {
+	// 		if (course.Course_Name == course_name) {
+	// 			const course_ref_delete = app.database().ref('Students/' + currentUser.uid + '/MyCourses/' + course_keys[id]);
+	// 			course_ref_delete.remove();
+	// 		}
+	// 	})
+	// }
+
+
+	async function upvote_course(info) {
+		
+		var course_ref = firebase.database().ref('Courses/' + info.Course_Name + '/Course_Details');
+		console.log("Course Ref is "+course_ref)
+		var course_ref_info = [];
+		await course_ref.once('value').then((snapshot) => {
+			course_ref_info = (snapshot.val());
+		})
+
+		console.log(course_ref_info)
+		var x = course_ref_info.no_of_likes;
+		course_ref.update({
+			no_of_likes: x + 1
+		})
+
+		var student_info_ref = [];
+		var student_ref = app.database().ref("Students/" + currentUser.uid);
+		await student_ref.once("value").then((snapshot) => {
+			student_info_ref = (snapshot.val());
+		});
+		console.log(student_info_ref)
+		var course_keys =[]
+		Object.keys(student_info_ref).map((number) => {
+			if(number!='Age'&&number!='College'&&number!='Email'&&number!='LastName'&&number!='Mycourses'&&number!='name'){
+				course_keys.push(number)
+			}
+		})
+		for(let id in course_keys){
+			student_ref = app.database().ref("Students/" + currentUser.uid+"/"+course_keys[id])
+			await student_ref.once("value").then((snapshot) => {
+				if(snapshot.val().Course_Name==info.Course_Name){
+					console.log("It works")
+					student_ref.update({
+						Upvote_Status: true
+					})
+				}
+			});
+		}
+	}
+
+	async function downvote_course(info) {
+		var course_ref = firebase.database().ref('Courses/' + info.Course_Name + '/Course_Details');
+		console.log("Course Ref is "+course_ref)
+		var course_ref_info = [];
+		await course_ref.once('value').then((snapshot) => {
+			course_ref_info = (snapshot.val());
+		})
+
+		console.log(course_ref_info)
+		var x = course_ref_info.no_of_likes;
+		course_ref.update({
+			no_of_likes: x - 1
+		})
+
+		var student_info_ref = [];
+		var student_ref = app.database().ref("Students/" + currentUser.uid);
+		await student_ref.once("value").then((snapshot) => {
+			student_info_ref = (snapshot.val());
+		});
+		console.log(student_info_ref)
+		var course_keys =[]
+		Object.keys(student_info_ref).map((number) => {
+			if(number!='Age'&&number!='College'&&number!='Email'&&number!='LastName'&&number!='Mycourses'&&number!='name'){
+				course_keys.push(number)
+			}
+		})
+		for(let id in course_keys){
+			student_ref = app.database().ref("Students/" + currentUser.uid+"/"+course_keys[id])
+			await student_ref.once("value").then((snapshot) => {
+				if(snapshot.val().Course_Name==info.Course_Name){
+					console.log("It works")
+					student_ref.update({
+						Upvote_Status: false
+					})
+				}
+			});
+		}
+	}
 
 	const student_course_information = async () => {
 		const course_info_ref = app.database().ref("Courses/" + course_name);
@@ -142,13 +198,13 @@ export default function Students_dashboard() {
 				logout={<Button onClick={handleLogout}>Log Out</Button>}
 				updateProfile={
 					<Button>
-						<Link to="/updateProfile">Update Profile</Link>
+						<Link to="/updateProfile">Update Password</Link>
 					</Button>
 				}
 			/>
-       <Link to={`/forum/${course_name}`} >
-                        <Button variant="contained" color="secondary" >Go to Forum</Button>
-                    </Link>
+			<Link to={`/forum/${course_name}`} >
+				<Button variant="contained" color="secondary" >Go to Forum</Button>
+			</Link>
 			{explore ? (
 				<>
 					<h1>Course Material</h1>
@@ -159,25 +215,25 @@ export default function Students_dashboard() {
 								<Card sx={{ minWidth: 275 }}>
 									<CardContent>
 										<Typography variant="h5" component="div">
-										{course.VideoTitle}
+											{course.VideoTitle}
 										</Typography>
 										<Typography variant="body2">
-										{course.VideoDescription}
+											{course.VideoDescription}
 										</Typography>
 									</CardContent>
 									<CardActions>
-									<ReactPlayer width="480px" height="240px"  controls url={course.VideoLink}/>				
+										<ReactPlayer width="480px" height="240px" controls url={course.VideoLink} />
 									</CardActions>
 									<br></br>
 									<br></br>
 								</Card>
 							</div>
 						))
-						}
-						<br></br>
-						<Button onClick={(e) => {setExplore(false);}} variant="contained" color="secondary">Go Back</Button>
-						<br></br>
-					
+					}
+					<br></br>
+					<Button onClick={(e) => { setExplore(false); }} variant="contained" color="secondary">Go Back</Button>
+					<br></br>
+
 				</>
 			) : (
 				<>
@@ -192,9 +248,9 @@ export default function Students_dashboard() {
 								<div className="contentBx">
 									<div className="formBx">
 										<h1>Students Dashboard</h1>
-										<h2>Name: {info.Name}</h2>
-										<h2>Last Name: {info.LastName}</h2>
+										<h2>Hey {info.Name} {info.LastName}!</h2>
 										<h2>Age: {info.Age}</h2>
+										<br></br>
 										<h2>College: {info.College}</h2>
 										<h2>Email: {info.Email}</h2>
 									</div>
@@ -209,26 +265,21 @@ export default function Students_dashboard() {
 									<div>
 										<Card sx={{ minWidth: 275 }}>
 											<CardContent>
-
 												<Typography variant="h5" component="div">
 													{info.Course_Name}
 												</Typography>
 												<Typography variant="h5" component="div">
 													Date of Enrollment: {info.Date_Enrolled}
 												</Typography>
-                        <Link to={`/students_dashboard/${info.Course_Name}`}>
+												{!info.Upvote_Status ? 
+												<Button variant="contained" color="secondary" onClick={() => {upvote_course(info)}}>Upvote</Button> : 
+												<Button variant="contained" color="secondary" onClick={() => {downvote_course(info)}}>Downvote</Button>} <br></br> <br></br> 
+												<Link to={`/students_dashboard/${info.Course_Name}`}>
+													<Button variant="contained" color="secondary" >Explore</Button>
+												</Link>
 											</CardContent>
 											<CardActions>
-												<Button
-													onClick={(e) => {
-														setcourse_name(info.Course_Name);
-														setExplore(true);
-													}}
-													variant="contained"
-													color="secondary"
-												>
-													Explore
-												</Button>
+												
 											</CardActions>
 										</Card>
 										<br />
@@ -240,6 +291,7 @@ export default function Students_dashboard() {
 						))}
 				</>
 			)}
+			<FooterNew />
 		</>
 	);
 }

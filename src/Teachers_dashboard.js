@@ -14,6 +14,9 @@ import Quiz from './Quiz';
 import Display_teacher_courses from './Display_teacher_courses';
 import "./Login.css";
 import teacher from "./images/teacher.png";
+import './anchor.css';
+import FooterNew from './FooterNew';
+import './Footer.css'
 
 const useStyles = makeStyles({
     root: {
@@ -164,7 +167,7 @@ return (
             logout={<Button onClick={handleLogout}>Log Out</Button>}
             updateProfile={
                 <Button>
-                    <Link to="/updateProfile">Update Profile</Link>
+                    <Link to="/updateProfile">Update Password</Link>
                 </Button>
             }
         />
@@ -179,7 +182,7 @@ return (
                 <div className="formBx"></div>
                 <div>
                     <h1>Instructor's Dashboard</h1>
-                    <h3>Hello {name}</h3>
+                    <h3>Hey {name}</h3>
                 </div>
                 {CreateCourse ? (
                     <div>
@@ -263,6 +266,7 @@ return (
                 )}
             </div>
         </section>
+        <FooterNew />
     </>
 );
 }

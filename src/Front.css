@@ -1,3 +1,8 @@
+* a{
+	color: white;
+	text-decoration: none;
+}
+
 .front {
 	background: linear-gradient(225deg, #e91e63, #03a9f4);
 	margin-top: -3rem;
