@@ -29,12 +29,14 @@ const Quiz = ({CourseName}) => {
         
         e.preventDefault();
         const options =[];
-        Quizref = firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz/`);
+        Quizref = firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz`);
+        console.log(Quizref)
         options.push(option1,option2,option3,option4)
         console.log(options)
         console.log(option1)
         const Quiz_info ={
             
+
             Question:Question,
             questiontype:"text",
             questionPic:"",
@@ -72,7 +74,7 @@ const Quiz = ({CourseName}) => {
          Quizref = firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz`);
        // setCourseName(CourseNameRef.current.value)
         const Quiztitle_info = {
-            Title:quiztitle
+            Title:"quiz"
         }
         Quizref.child("Quiztitle").set(Quiztitle_info);
         setVisible(true);
@@ -100,7 +102,7 @@ const Quiz = ({CourseName}) => {
             ) : (
                 <>
                 <form onSubmit={handleSubmit}>
-                <TextField id="outlined-basic"  value={quiztitle} onChange={e => setQuiztitle(e.target.value)}  variant="outlined"  required  />
+                {/* <TextField id="outlined-basic"  value={quiztitle} onChange={e => setQuiztitle(e.target.value)}  variant="outlined"  required  /> */}
                  <Button type='submit' variant="contained" color="secondary">
                   Create Quiz
                  </Button>

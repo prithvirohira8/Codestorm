@@ -72,7 +72,13 @@ export default function Signup() {
             Occupation: "student"
         }
         StudentRef.child(currentUser.uid).set(Studentinfo)
-        history.push('/students_dashboard')
+        const MycoursesRef = firebase.database().ref('Students/'+currentUser.uid)
+        const MyCourseinfo = {
+            Course_Name: "",
+            Date_Enrolled: ""
+        }
+        MycoursesRef.child('MyCourses').set(MyCourseinfo);
+        history.push('/students_dashboard');
     }
 
 
