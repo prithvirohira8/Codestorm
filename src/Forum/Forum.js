@@ -47,30 +47,32 @@ import app from '../firebase';
 //     "avatarUrl": "https://ui-avatars.com/api/name=Derek&background=random"
 //   }
 // ]
-const ref = firebase.database().ref(`Courses/www/Course_Details/Forum`);
-  ref.once('value').then((snap) => {
-    console.log(snap.val());
-  })
+// const ref = firebase.database().ref(`Courses/`);
+//   ref.once('value').then((snap) => {
+//     console.log(snap.val());
+//   })
 
 const Forum = ({ match }) => {
-  const [error, setError] = useState()
-
+  const ref = firebase.database().ref(`Courses/${match.params.course_name}`)
   const fref = firebase.database().ref(`Courses/${match.params.course_name}/Course_Details/Forum`);
 
   useEffect(() => {
-    var data = [];
-    fref.on('value', async (snapshot) => {
-      if (snapshot.val()) {
-        data = await snapshot.val();
-        setComments(snapshot.val())
-        setError(false)
-      }else {
+    ref.once('value', (snap) => {
+      if (snap.val()) {
+        fref.on('value', async (snapshot) => {
+          if (snapshot.val()) {
+            setComments(snapshot.val())
+            setError(false)
+          }
+        })
+      } else {
         setError(true)
       }
-      console.log(data);
     })
+    console.log(error)
   }, [])
 
+  const [error, setError] = useState()
   const [comments, setComments] = useState([])
   const { currentUser } = useAuth();
   const [commentSection, setCommentSection] = useState(false)
@@ -109,7 +111,7 @@ const Forum = ({ match }) => {
           </div>
         </div> :
         <h1>Error</h1>
-        } 
+      }
     </>
   )
 }
