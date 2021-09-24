@@ -12,6 +12,7 @@ import app from './firebase';
 import TextField from '@material-ui/core/TextField';
 import Quiz from './Quiz';
 import Display_teacher_courses from './Display_teacher_courses';
+import "./Login.css";
 
 const useStyles = makeStyles({
 	root: {
@@ -31,6 +32,19 @@ const useStyles = makeStyles({
 });
 
 export default function Teachers_dashboard() {
+	const CourseNameRef = useRef();
+	const CourseTopicNameRef = useRef();
+	const CourseDescriptionRef = useRef();
+	const TopicDescriptionRef = useRef();
+	const VideoLinkRef = useRef();
+	const classes = useStyles();
+	const [name, setName] = useState();
+	const [CreateCourse, setCreateCourse] = useState(false);
+	const { logout, currentUser } = useAuth();
+	const history = useHistory();
+	const [loading, setLoading] = useState(false);
+	const [button, setButton] = useState("");
+	const [CourseName, setCourseName] = useState("");
 
     var courses_display = [];
     var teacher_courses = [];
@@ -88,15 +102,14 @@ export default function Teachers_dashboard() {
     const [tcourses,setTcourses] = useState();
     const [display,setDisplay] = useState();
 
-    async function handleLogout() {
-        try {
-            await logout();
-            history.push('/');
-        }
-        catch {
-            alert('Failed to Logout');
-        }
-    }
+	const undefined = async () => {
+		const teacher_info_ref = app.database().ref("Teachers/" + currentUser.uid);
+		const teacher_info = [];
+		await teacher_info_ref.once("value").then((snapshot) => {
+			teacher_info.push(snapshot.val());
+		});
+		setName(teacher_info[0].Name);
+	};
 
     const undefined = async() => {
 
@@ -157,74 +170,111 @@ export default function Teachers_dashboard() {
         setCreateCourse(true);
      }
 
-     function push(){
-         setCreateCourse(false);
-     }
+	return (
+		<>
+			<Navbar
+				logout={<Button onClick={handleLogout}>Log Out</Button>}
+				updateProfile={
+					<Button>
+						<Link to="/updateProfile">Update Profile</Link>
+					</Button>
+				}
+			/>
 
-    return (
-        <>
-            <Navbar
-                logout={<Button onClick={handleLogout}>Log Out</Button>} updateProfile={<Button><Link to='/updateProfile'>Update Profile</Link></Button>}/>
-            <div>
-                <h1>Instructor's Dashboard</h1>
-                <h3>Hello {name}</h3>
-            </div>
-
-            {
-                CreateCourse ?
-                (
-                    <div>
-                        <form onSubmit={handleSubmit1} className={classes.root} >
-                        <TextField id="outlined-basic" label="Topic Name" variant="outlined"  required inputRef={CourseTopicNameRef} />
-                        <br />
-                        <br /> 
-                        <TextField id="outlined-basic" label="Topic Description" variant="outlined" required inputRef={TopicDescriptionRef} />
-                        <br />
-                        <br />  
-                        <TextField id="outlined-basic" label="Video Link" variant="outlined" required inputRef={VideoLinkRef} />
-                        <br /> 
-                        <br />
-                        <Button type='submit' disabled={loading} variant="contained" color="secondary">
-                           Add Topic
-                        </Button>
-                        
-                        </form>
-
-                        <br /> 
-                        <br />
-                       
-                        <Quiz CourseName={CourseName} />
-                        <Button onClick={push} disabled={loading} variant="contained" color="secondary">
-                          Add Course
-                        </Button>
-                    </div>
-                )
-                :
-                (
-                    <form onSubmit={handleSubmit} className={classes.root} >
-                     <TextField id="outlined-basic" label="Course Name" variant="outlined" required inputRef={CourseNameRef} />
-                     <br />
-                     <br />
-                     <TextField id="outlined-basic" label="Description" variant="outlined" required inputRef={CourseDescriptionRef} />
-                     <br /> 
-                     <br />
-                     <Button type='submit' disabled={loading} variant="contained" color="secondary">
-                        Create Course
-                     </Button>
-                     <br /> 
-                     <br />
-                     </form>
-                )
-            }
-            {
-                <>
-                <Button onClick={viewcourse} variant="contained" color="secondary">
-                    View Courses
-                </Button>
-                <Display_teacher_courses currentUser={currentUser}/>
-                </>
-                
-            }
-        </>
-    );
+			<section>
+				<div className="imgBx">
+					<div className="photo">
+						<img src={teacher} />
+					</div>
+				</div>
+				<div className="contentBx">
+					<div className="formBx"></div>
+					<div>
+						<h1>Instructor's Dashboard</h1>
+						<h3>Hello {name}</h3>
+					</div>
+					{CreateCourse ? (
+						<div>
+							<form onSubmit={handleSubmit1} className={classes.root}>
+								<TextField
+									id="outlined-basic"
+									label="Topic Name"
+									variant="outlined"
+									required
+									inputRef={CourseTopicNameRef}
+								/>
+								<br />
+								<br />
+								<TextField
+									id="outlined-basic"
+									label="Topic Description"
+									variant="outlined"
+									required
+									inputRef={TopicDescriptionRef}
+								/>
+								<br />
+								<br />
+								<TextField
+									id="outlined-basic"
+									label="Video Link"
+									variant="outlined"
+									required
+									inputRef={VideoLinkRef}
+								/>
+								<br />
+								<br />
+								<Button
+									type="submit"
+									disabled={loading}
+									variant="contained"
+									color="secondary"
+								>
+									Add Topic
+								</Button>
+							</form>
+							<br />
+							<br />
+							<Button
+								onClick={push}
+								disabled={loading}
+								variant="contained"
+								color="secondary"
+							>
+								Add Course
+							</Button>
+						</div>
+					) : (
+						<form onSubmit={handleSubmit} className={classes.root}>
+							<TextField
+								id="outlined-basic"
+								label="Course Name"
+								variant="outlined"
+								required
+								inputRef={CourseNameRef}
+							/>
+							<br />
+							<br />
+							<TextField
+								id="outlined-basic"
+								label="Description"
+								variant="outlined"
+								required
+								inputRef={CourseDescriptionRef}
+							/>
+							<br />
+							<br />
+							<Button
+								type="submit"
+								disabled={loading}
+								variant="contained"
+								color="secondary"
+							>
+								Create Course
+							</Button>
+						</form>
+					)}
+				</div>
+			</section>
+		</>
+	);
 }

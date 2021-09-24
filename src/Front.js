@@ -12,6 +12,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
+import "./Front.css";
 import "./App.css";
 
 const StyledMenu = withStyles({
@@ -57,86 +58,27 @@ function Front() {
 	};
 	return (
 		<>
-			<div className="container">
-				<div className="row">
-					<div className="col-sm">
-						<div className="col">
-							<div className="adjust">
-								<img src={online} alt="img" height="500px" width="650px" />
+			<div className="front">
+				<div className="container">
+					<div className="row">
+						<div className="col-sm">
+							<div className="col">
+								<div className="adjust">
+									<img src={online} alt="img" height="500px" width="650px" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="col-sm">
-						<div className="content">
-							<h1>Explore all FullStack Courses in one place</h1>
-							<h2>
-								Learn new skills from comfort of your home anytime anywhere
-							</h2>
+						<div className="col-sm">
+							<div className="content">
+								<h1>Explore all FullStack Courses in one place</h1>
+								<h2>
+									Learn new skills from comfort of your home anytime anywhere
+								</h2>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* <Container maxWidth="lg">
-				<Grid item xs={12}>
-					<Grid container direction="column" spacing={0}>
-						<Grid item xs={12} sm={12} lg={6}>
-							<div className="container">
-								<div className="avatar">
-									<img src={online} alt="img" />
-								</div>
-							</div>
-						</Grid>
-					</Grid>
-				</Grid>
-
-				<Grid item xs={12}>
-					<Grid container justify="flex-end">
-						<Grid item xs={12} sm={12} lg={6}>
-							<div className="content">
-								<h1>
-									<strong>
-										Explore all the full stack development courses in one place
-									</strong>
-								</h1>
-								<h2>
-									Learn new skills from comfort of your home or anywhere anytime
-								</h2>
-							</div>
-							<div>
-								<Button
-									aria-controls="customized-menu"
-									aria-haspopup="true"
-									variant="contained"
-									color="primary"
-									onClick={handleClick}
-								>
-									Login
-								</Button>
-								<StyledMenu
-									id="customized-menu"
-									anchorEl={anchorEl}
-									keepMounted
-									open={Boolean(anchorEl)}
-									onClose={handleClose}
-								>
-									<StyledMenuItem>
-										<ListItemIcon>
-											<SendIcon fontSize="small" />
-										</ListItemIcon>
-										<ListItemText primary="Teacher" />
-									</StyledMenuItem>
-									<StyledMenuItem>
-										<ListItemIcon>
-											<DraftsIcon fontSize="small" />
-										</ListItemIcon>
-										<ListItemText primary="Student" />
-									</StyledMenuItem>
-								</StyledMenu>
-							</div>
-						</Grid>
-					</Grid>
-				</Grid>
-			</Container> */}
 		</>
 	);
 }
