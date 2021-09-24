@@ -10,12 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import app from './firebase';
 import TextField from '@material-ui/core/TextField';
-<<<<<<< HEAD
-import { display } from '@mui/system';
-=======
 import Quiz from './Quiz';
 import Display_teacher_courses from './Display_teacher_courses';
->>>>>>> c285d2717840376a7cddfdf192ae793aaf9cd460
 
 const useStyles = makeStyles({
 	root: {
@@ -112,14 +108,11 @@ export default function Teachers_dashboard() {
         setName(teacher_info[0].Name)
     }
 
-<<<<<<< HEAD
-=======
 
       useEffect(() => {
           undefined();
       }, [])
 
->>>>>>> c285d2717840376a7cddfdf192ae793aaf9cd460
     function handleSubmit(e) {
         e.preventDefault();
         const Course_Ref = app.database().ref('Courses/'+CourseNameRef.current.value)
@@ -140,19 +133,12 @@ export default function Teachers_dashboard() {
             DateofCreation: date
         }
         Course_Ref.child('Course_Details').set(Course_info)
-<<<<<<< HEAD
-        const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid)
-        teachers_course_Ref.child('/MyCourses').push(CourseNameRef.current.value)
-        // const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
-        // teachers_course_Ref.child('Course_Details').set(Course_info)
-=======
 
         const teachers_course_Ref = app.database().ref('Teachers')
         const teachers_course_details = {
             Name: CourseNameRef.current.value
         }
         teachers_course_Ref.child('MyCourses').set(teachers_course_details)
->>>>>>> c285d2717840376a7cddfdf192ae793aaf9cd460
         setCreateCourse(true);
      }
 
@@ -231,25 +217,12 @@ export default function Teachers_dashboard() {
                 )
             }
             {
-<<<<<<< HEAD
-                !view_course ? 
-                <Button onClick={() =>{
-                    setView_course(true)
-                }} variant="contained" color="secondary">
-                    View Courses Created
-                </Button> :  
-                tcourses[0] && (tcourses).map((course) => {
-                    <h5>Hello</h5>
-                    // <h5>{course.Course_Details.Name}</h5>
-                })
-=======
                 <>
                 <Button onClick={viewcourse} variant="contained" color="secondary">
                     View Courses
                 </Button>
                 <Display_teacher_courses currentUser={currentUser}/>
                 </>
->>>>>>> c285d2717840376a7cddfdf192ae793aaf9cd460
                 
             }
         </>
