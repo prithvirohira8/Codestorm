@@ -1,0 +1,13 @@
+.front {
+	background: linear-gradient(225deg, #e91e63, #03a9f4);
+	margin-top: -3rem;
+}
+@media (max-width: 700px) {
+	.adjust {
+		margin-left: -6.5rem;
+	}
+}
+
+.content {
+	color: white;
+}

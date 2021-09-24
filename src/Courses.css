@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.container1 {
+	width: 80%;
+	margin: 50px auto;
+	padding-left: 7rem;
+}
+
+.row1 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	flex-flow: wrap;
+}
+
+.card1 {
+	width: 80%;
+	background: #fff;
+	border: 1px solid #ccc;
+	margin-bottom: 50px;
+	transition: 0.3s;
+}
+
+.card-header1 {
+	text-align: center;
+	padding: 50px 10px;
+	background: linear-gradient(225deg, #e91e63, #03a9f4);
+	color: #fff;
+	font-family: "Courier New", Courier, monospace;
+}
+
+.card-body1 {
+	padding: 10px 20px;
+	text-align: center;
+	font-size: 18px;
+	font-family: Fredoka One;
+}
+
+.card-body .btn {
+	display: block;
+	color: #fff;
+	text-align: center;
+	background: linear-gradient(225deg, #e91e63, #03a9f4);
+	margin-top: 30px;
+	text-decoration: none;
+	padding: 10px 5px;
+}
+
+.card1:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 1000px) {
+	.card1 {
+		width: 40%;
+	}
+}
+
+@media screen and (max-width: 620px) {
+	.container1 {
+		width: 100%;
+	}
+
+	.card1 {
+		width: 80%;
+	}
+}

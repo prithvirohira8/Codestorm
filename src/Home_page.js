@@ -18,9 +18,9 @@ function Home_page() {
 				teachers_login={<Button>Teachers Log In</Button>}
 			/>
 			<Front />
+			<br/>
 			<Card />
-			<Feature />
-           
+			{/* <Feature /> */}
 		</div>
 	);
 }
