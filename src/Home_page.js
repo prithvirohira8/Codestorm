@@ -6,6 +6,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import Front from "./Front";
 import Card from "./Cards";
 import Feature from "./Feature";
+import Quiz from './Quiz'
 
 function Home_page() {
 	return (
@@ -19,6 +20,7 @@ function Home_page() {
 			<Front />
 			<Card />
 			<Feature />
+           
 		</div>
 	);
 }
