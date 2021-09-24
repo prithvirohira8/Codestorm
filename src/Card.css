@@ -1,0 +1,21 @@
+.align_div{
+  margin: auto !important;
+  width: 90% !important;
+  padding: 10px !important;
+}
+.align_text{
+    text-align: center !important;
+    vertical-align: middle !important;  
+}
+.Iframe{
+  margin: auto !important;
+  width: 90% !important;
+  padding: 10px !important;
+  display: block;
+}
+.AboutUs{
+    background-color: rgb(255, 255, 187);
+}
+.What_do_we_provide{
+    background-color: rgb(183, 255, 255);
+}
