@@ -103,7 +103,6 @@ export default function Students_dashboard() {
                 course_ref_info.push(snapshot.val());
             })
             console.log(course_ref_info)
-            var y =  course_ref_info[0].No_of_students_enrolled;
             var x =  course_ref_info[0].no_of_likes;
             course_ref.update({
                 no_of_likes: x + 1

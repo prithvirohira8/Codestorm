@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import app from './firebase';
 import TextField from '@material-ui/core/TextField';
+import { display } from '@mui/system';
 
 const useStyles = makeStyles({
 	root: {
@@ -30,6 +31,45 @@ const useStyles = makeStyles({
 
 export default function Teachers_dashboard() {
 
+    var courses_display = [];
+    var teacher_courses = [];
+    let course_obj = {}
+
+    async function viewcourse(){
+        const teacher_course_ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
+        var teacher_courses = []
+        await teacher_course_ref.once('value').then((snapshot) => {
+            console.log(snapshot.val())
+            teacher_courses.push(snapshot.val());
+        })
+        
+        teacher_courses = Object.values(teacher_courses[0]);
+        console.log(teacher_courses)
+           async function just_for_sake_of_async(course){
+               const course_ref = app.database().ref('Courses/'+course)
+               await course_ref.once('value').then((snapshot) => {
+                   console.log(snapshot.val())
+                   course_obj = snapshot.val()
+                   courses_display.push(snapshot.val())
+               })
+               setTcourses(courses_display)
+       }
+        teacher_courses.map((course,id) => {
+           just_for_sake_of_async(course)    
+        })
+       console.log(courses_display)
+       // console.log(courses_display[0].Name)
+       console.log(courses_display)
+       
+       console.log(course_obj)
+   }
+
+    useEffect(() => {
+        undefined();
+        viewcourse();
+    }, [])
+
+
     const CourseNameRef = useRef();
     const CourseTopicNameRef = useRef();
     const CourseDescriptionRef = useRef();
@@ -44,6 +84,8 @@ export default function Teachers_dashboard() {
     const [button, setButton] = useState("");
     const [CourseName, setCourseName] = useState("");
     const [view_course,setView_course] = useState(false);
+    const [tcourses,setTcourses] = useState();
+    const [display,setDisplay] = useState();
 
     async function handleLogout() {
         try {
@@ -56,6 +98,7 @@ export default function Teachers_dashboard() {
     }
 
     const undefined = async() => {
+
         const teacher_info_ref = app.database().ref('Teachers/'+currentUser.uid)
         const teacher_info = []
         await teacher_info_ref.once('value').then((snapshot) => {
@@ -63,10 +106,6 @@ export default function Teachers_dashboard() {
         })
         setName(teacher_info[0].Name)
     }
-
-      useEffect(() => {
-          undefined();
-      }, [])
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -88,12 +127,10 @@ export default function Teachers_dashboard() {
             DateofCreation: date
         }
         Course_Ref.child('Course_Details').set(Course_info)
-
-        const teachers_course_Ref = app.database().ref('Teachers')
-        const teachers_course_details = {
-            Name: CourseNameRef.current.value
-        }
-        teachers_course_Ref.child('MyCourses').value(teachers_course_details)
+        const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid)
+        teachers_course_Ref.child('/MyCourses').push(CourseNameRef.current.value)
+        // const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
+        // teachers_course_Ref.child('Course_Details').set(Course_info)
         setCreateCourse(true);
      }
 
@@ -107,6 +144,8 @@ export default function Teachers_dashboard() {
             Quiz: ""
         }
         Topic_Ref.push(Topic_info)
+        // const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
+        // teachers_course_Ref.push(Topic_info);
         setCreateCourse(true);
      }
 
@@ -114,9 +153,6 @@ export default function Teachers_dashboard() {
          setCreateCourse(false);
      }
 
-     async function viewcourse(){
-         
-     }
     return (
         <>
             <Navbar
@@ -169,11 +205,17 @@ export default function Teachers_dashboard() {
                 )
             }
             {
-                !view_course ?
-                <Button onClick={viewcourse} variant="contained" color="secondary">
-                    View Courses
-                </Button>
-                :""
+                !view_course ? 
+                <Button onClick={() =>{
+                    setView_course(true)
+                }} variant="contained" color="secondary">
+                    View Courses Created
+                </Button> :  
+                tcourses[0] && (tcourses).map((course) => {
+                    <h5>Hello</h5>
+                    // <h5>{course.Course_Details.Name}</h5>
+                })
+                
             }
         </>
     );
