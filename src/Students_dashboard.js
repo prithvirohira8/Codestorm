@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import app from "./firebase";
 import firebase from "./firebase";
+import ReactPlayer from 'react-player';
 
 
 import Quiz from 'react-quiz-component';
@@ -100,26 +101,33 @@ export default function Students_dashboard() {
 			/>
 			{explore ? (
 				<>
-					<h1>jhkj</h1>
+					<h1>Course Material</h1>
 
 					{StudentCourse &&
 						Object.values(StudentCourse[0]).map((course, id) => (
 							<div>
-								<h2>{course.VideoTitle}</h2>
-								<h3>{course.VideoDescription}</h3>
-								<h3>{course.VideoLink}</h3>
+								<Card sx={{ minWidth: 275 }}>
+									<CardContent>
+										<Typography variant="h5" component="div">
+										{course.VideoTitle}
+										</Typography>
+										<Typography variant="body2">
+										{course.VideoDescription}
+										</Typography>
+									</CardContent>
+									<CardActions>
+									<ReactPlayer width="480px" height="240px"  controls url={course.VideoLink}/>				
+									</CardActions>
+									<br></br>
+									<br></br>
+								</Card>
 							</div>
-						))}
-
-					<Button
-						onClick={(e) => {
-							setExplore(false);
-						}}
-						variant="contained"
-						color="secondary"
-					>
-						go back
-					</Button>
+						))
+						}
+						<br></br>
+						<Button onClick={(e) => {setExplore(false);}} variant="contained" color="secondary">Go Back</Button>
+						<br></br>
+					
 				</>
 			) : (
 				<>
@@ -149,21 +157,29 @@ export default function Students_dashboard() {
 							<div>
 								{info.Course_Name ? (
 									<div>
-										<h2>Course Name: {info.Course_Name}</h2>
-										<h3>Date of Enrollment: {info.Date_Enrolled}</h3>
-										<Button
-											onClick={(e) => {
-												setcourse_name(info.Course_Name);
-												setExplore(true);
-												console.log(course_name);
-												// student_course_information();
-												//student_course_information();
-											}}
-											variant="contained"
-											color="secondary"
-										>
-											Explore
-										</Button>
+										<Card sx={{ minWidth: 275 }}>
+											<CardContent>
+
+												<Typography variant="h5" component="div">
+													{info.Course_Name}
+												</Typography>
+												<Typography variant="h5" component="div">
+													Date of Enrollment: {info.Date_Enrolled}
+												</Typography>
+											</CardContent>
+											<CardActions>
+												<Button
+													onClick={(e) => {
+														setcourse_name(info.Course_Name);
+														setExplore(true);
+													}}
+													variant="contained"
+													color="secondary"
+												>
+													Explore
+												</Button>
+											</CardActions>
+										</Card>
 										<br />
 									</div>
 								) : (

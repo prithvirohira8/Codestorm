@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
 	const [currentUser, setCurrentUser] = useState();
-	const { signup } = useAuth();
+	const { signup, changecurrentUser } = useAuth();
 	const classes = useStyles();
 	const NameRef = useRef();
 	const LastnameRef = useRef();
@@ -52,7 +52,6 @@ export default function Signup() {
 		}
 	}
 
-<<<<<<< HEAD
     if (task) {
         const StudentRef = firebase.database().ref('Students')
         const Studentinfo = {
@@ -73,14 +72,6 @@ export default function Signup() {
         MycoursesRef.child('MyCourses').set(MyCourseinfo);
         history.push('/students_dashboard');
     }
-=======
-	function changecurrentUser() {
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			setCurrentUser(user);
-		});
-		return unsubscribe;
-	}
->>>>>>> ad379bcd4075c567dbed91f7d84c050e11e2046f
 
 	if (task) {
 		const StudentRef = firebase.database().ref("Students");
@@ -105,7 +96,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Name"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={NameRef}
 						/>
@@ -113,7 +104,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Last Name"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={LastnameRef}
 						/>
@@ -121,7 +112,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Year"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={YearRef}
 						/>
@@ -129,7 +120,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Age"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={AgeRef}
 						/>
@@ -137,7 +128,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="College"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={CollegeRef}
 						/>
@@ -145,7 +136,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Email"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={emailRef}
 						/>
@@ -153,7 +144,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Password"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={passwordRef}
 						/>
@@ -161,7 +152,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="ConfirmPassword"
-							variant="outlined"
+							variant="standard"
 							required
 							inputRef={passwordConfirmRef}
 						/>

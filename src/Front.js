@@ -64,18 +64,20 @@ function Front() {
 						<div className="col-sm">
 							<div className="col">
 								<div className="adjust">
-									<img src={online} alt="img" height="500px" width="650px" />
+									<img src={online} alt="img" height="500px" width="550px" />
 								</div>
 							</div>
 						</div>
 						<div className="col-sm">
 							<div className="content">
-								<h1>Explore all FullStack Courses in one place</h1>
+								<h1>Explore all Full Stack  Courses in one place</h1>
 								<h2>
-									Learn new skills from comfort of your home anytime anywhere
+									Learn Full Stack Devevlopment the right way!
 								</h2>
 							</div>
-						</div>
+							<br></br>
+							<Button variant="contained" color="secondary">Start your Web Development Journey! </Button>
+						</div>	
 					</div>
 				</div>
 			</div>
