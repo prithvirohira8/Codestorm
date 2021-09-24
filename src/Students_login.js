@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { useAuth } from "./Context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import study from "./images/study.jpg";
+import "./Login.css";
 import { app } from "./firebase";
 
 const useStyles = makeStyles((theme) => ({

@@ -12,7 +12,7 @@ class Cards extends Component {
 		return (
 			<>
 				<div className="heading">
-					<h1>Our Tutorial Covers</h1>
+					<h1>Courses Available</h1>
 				</div>
 				<div className="container-fluid d-flex justify-content-center">
 					<div className="row">
@@ -42,6 +42,9 @@ class Cards extends Component {
 							</div>
 						</div>
 					</div>
+				</div>
+				<div className="heading">
+					<h1>And many more......</h1>
 				</div>
 			</>
 		);

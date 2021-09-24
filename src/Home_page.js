@@ -18,7 +18,7 @@ function Home_page() {
 			/>
 			<Front />
 			<Card />
-			<Feature />
+			{/* <Feature /> */}
 		</div>
 	);
 }
