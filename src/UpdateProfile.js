@@ -68,6 +68,7 @@ export default function UpdateProfile() {
 							id="outlined-basic"
 							label="PassWord"
 							variant="outlined"
+							type="password"
 							required
 							inputRef={passwordRef}
 						/>
@@ -76,6 +77,7 @@ export default function UpdateProfile() {
 							id="outlined-basic"
 							label="ConfirmPassword"
 							variant="outlined"
+							type="password"
 							required
 							inputRef={passwordConfirmRef}
 						/>

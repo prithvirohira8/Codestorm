@@ -97,6 +97,7 @@ export default function Teachers_login() {
 								id="outlined-basic"
 								label="PassWord"
 								variant="outlined"
+								type="password"
 								required
 								inputRef={passwordRef}
 							/>

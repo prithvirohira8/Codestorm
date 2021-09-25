@@ -190,7 +190,7 @@ return (
                             <TextField
                                 id="outlined-basic"
                                 label="Topic Name"
-                                variant="outlined"
+
                                 required
                                 inputRef={CourseTopicNameRef}
                             />
@@ -199,7 +199,7 @@ return (
                             <TextField
                                 id="outlined-basic"
                                 label="Topic Description"
-                                variant="outlined"
+                                
                                 required
                                 inputRef={TopicDescriptionRef}
                             />
@@ -208,7 +208,7 @@ return (
                             <TextField
                                 id="outlined-basic"
                                 label="Video Link"
-                                variant="outlined"
+
                                 required
                                 inputRef={VideoLinkRef}
                             />
@@ -217,7 +217,7 @@ return (
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                variant="contained"
+
                                 color="secondary"
                             >
                                 Add Topic
@@ -228,7 +228,6 @@ return (
                         <Button
                             onClick={push}
                             disabled={loading}
-                            variant="contained"
                             color="secondary"
                         >
                             Add Course
@@ -239,7 +238,6 @@ return (
                         <TextField
                             id="outlined-basic"
                             label="Course Name"
-                            variant="outlined"
                             required
                             inputRef={CourseNameRef}
                         />
@@ -248,7 +246,6 @@ return (
                         <TextField
                             id="outlined-basic"
                             label="Description"
-                            variant="outlined"
                             required
                             inputRef={CourseDescriptionRef}
                         />

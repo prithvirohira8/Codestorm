@@ -168,10 +168,11 @@ export default function Courses() {
 							<br />
 							<br />
 						</div>
-						<FooterNew />
+						
 					</div>
 				))
 			)}
+			<FooterNew />
 		</>
 	);
 }

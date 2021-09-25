@@ -24,6 +24,7 @@ export default function Students_login() {
 	const [loading, setLoading] = useState(false);
 	const { students_login } = useAuth();
 	const history = useHistory();
+	const [currentUser, setCurrentUser] = useState();
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -39,6 +40,15 @@ export default function Students_login() {
 			setLoading(false);
 		}
 	}
+
+	// function changecurrentUser(){
+    //     const unsubscribe = auth.onAuthStateChanged(user => {
+    //         setCurrentUser(user);
+    //         setLoading(false);
+    //     })
+    //     return unsubscribe;
+    // }
+
 	return (
 		<>
 			<section>
@@ -62,6 +72,7 @@ export default function Students_login() {
 								id="outlined-basic"
 								label="PassWord"
 								variant="outlined"
+								type="password"
 								required
 								inputRef={passwordRef}
 							/>

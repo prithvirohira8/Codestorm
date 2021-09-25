@@ -143,6 +143,7 @@ export default function Signup() {
 							id="outlined-basic"
 							label="Password"
 							variant="standard"
+							type="password"
 							required
 							inputRef={passwordRef}
 						/>
@@ -151,6 +152,7 @@ export default function Signup() {
 							id="outlined-basic"
 							label="ConfirmPassword"
 							variant="standard"
+							type="password"
 							required
 							inputRef={passwordConfirmRef}
 						/>
@@ -160,6 +162,7 @@ export default function Signup() {
 							disabled={loading}
 							variant="contained"
 							color="secondary"
+							type="password"
 						>
 							SignUp
 						</Button>

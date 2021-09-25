@@ -78,7 +78,6 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Name"
-							variant="outlined"
 							required
 							inputRef={NameRef}
 						/>
@@ -86,7 +85,6 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Last Name"
-							variant="outlined"
 							required
 							inputRef={LastnameRef}
 						/>
@@ -94,7 +92,6 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="shortdesc"
-							variant="outlined"
 							required
 							inputRef={shortdescRef}
 						/>
@@ -102,7 +99,6 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Email"
-							variant="outlined"
 							required
 							inputRef={emailRef}
 						/>
@@ -110,7 +106,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="Password"
-							variant="outlined"
+							type="password"
 							required
 							inputRef={passwordRef}
 						/>
@@ -118,7 +114,7 @@ export default function Signup() {
 						<TextField
 							id="outlined-basic"
 							label="ConfirmPassword"
-							variant="outlined"
+							type="password"
 							required
 							inputRef={passwordConfirmRef}
 						/>
@@ -126,7 +122,6 @@ export default function Signup() {
 						<Button
 							type="submit"
 							disabled={loading}
-							variant="contained"
 							color="secondary"
 						>
 							SignUp
