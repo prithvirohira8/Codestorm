@@ -75,7 +75,7 @@ function Front() {
 						</div>
 						<div className="col-sm">
 							<div className="content">
-							<h1>Devsera </h1>
+								<h1>Devsera </h1>
 								<h1>Explore all Full Stack  Courses in one place</h1>
 								<h2>
 									Learn Full Stack Devevlopment the right way!
@@ -83,7 +83,7 @@ function Front() {
 							</div>
 							<br></br>
 
-							<Button variant="contained" color="secondary"><Link to="/Mycourse">Start your Web Development Journey! </Link></Button>
+							<Button variant="contained" color="secondary" ><Link to="/Mycourse" style={{ textDecoration: "none", color: "white" }}>Start your Web Development Journey! </Link></Button>
 
 							{/* <Button>
                     <Link to="/updateProfile">Update Profile</Link>

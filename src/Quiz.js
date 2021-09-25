@@ -15,19 +15,12 @@ const Quiz = ({CourseName}) => {
     const [visible,setVisible] = useState(false)
         
     
-   
 
-    function pushQuestion(){
-     
-      
-    }
-
-    var Quizref =" "
+    var Quizref =firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz`);
    
 
      function handleSubmit1(e){
         
-        e.preventDefault();
         const options =[];
         Quizref = firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz`);
         console.log(Quizref)
@@ -58,7 +51,7 @@ const Quiz = ({CourseName}) => {
         setOption3("")
         setOption4("")
         setExplanation("")
-
+        e.preventDefault();
 
 
 
@@ -69,41 +62,40 @@ const Quiz = ({CourseName}) => {
          
      }
     function handleSubmit(e) {
-        e.preventDefault();
-        
-         Quizref = firebase.database().ref(`Courses/${CourseName}/Course_Details/Quiz`);
        // setCourseName(CourseNameRef.current.value)
         const Quiztitle_info = {
             Title:"quiz"
         }
-        Quizref.child("Quiztitle").set(Quiztitle_info);
+        Quizref.set(Quiztitle_info);
         setVisible(true);
-
+        e.preventDefault();
      }
 
     return (
+        
         <div>
+            <br />
             { visible ? (
 
                 <>
-                 <form onSubmit={handleSubmit1}>
-          <TextField id="outlined-basic" placeholder="Question" value={Question} onChange={e => setQuestion(e.target.value)}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Option1" value={option1} onChange={(e) => {setOption1(e.target.value)}}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Option2" value={option2} onChange={(e) => {setOption2(e.target.value)}}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Option3" value={option3} onChange={(e) => {setOption3(e.target.value)}}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Option4" value={option4} onChange={(e) => {setOption4(e.target.value)}}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Correct Answer(option no.)" value={correctAnswer} onChange={e => setCorrectAnswer(e.target.value)}  variant="outlined"  required  /><br/>
-          <TextField id="outlined-basic" placeholder="Explanation" value={explanation} onChange={(e) => {setExplanation(e.target.value)}}  variant="outlined"  required  />
-          <Button type='submit' onClick={pushQuestion} variant="contained" color="secondary">
+                 <form>
+          <TextField id="outlined-basic" placeholder="Question" value={Question} onChange={e => setQuestion(e.target.value)}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Option1" value={option1} onChange={(e) => {setOption1(e.target.value)}}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Option2" value={option2} onChange={(e) => {setOption2(e.target.value)}}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Option3" value={option3} onChange={(e) => {setOption3(e.target.value)}}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Option4" value={option4} onChange={(e) => {setOption4(e.target.value)}}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Correct Answer(option no.)" value={correctAnswer} onChange={e => setCorrectAnswer(e.target.value)}  variant="outlined"  required  /><br/><br/>
+          <TextField id="outlined-basic" placeholder="Explanation" value={explanation} onChange={(e) => {setExplanation(e.target.value)}}  variant="outlined"  required  /><br/><br/>
+          <Button type='submit' variant="contained" color="secondary" onClick={handleSubmit1}>
                           Add Question
                         </Button>
           </form>
                 </>
             ) : (
                 <>
-                <form onSubmit={handleSubmit}>
+                <form >
                 {/* <TextField id="outlined-basic"  value={quiztitle} onChange={e => setQuiztitle(e.target.value)}  variant="outlined"  required  /> */}
-                 <Button type='submit' variant="contained" color="secondary">
+                 <Button type='submit' variant="contained" color="secondary" onClick={handleSubmit}>
                   Create Quiz
                  </Button>
           </form>

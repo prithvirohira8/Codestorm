@@ -13,7 +13,6 @@ import Typography from "@material-ui/core/Typography";
 import app from "./firebase";
 import firebase from "./firebase";
 import ReactPlayer from 'react-player';
-import Forum from './Forum/Forum';
 import './anchor.css';
 import FooterNew from './FooterNew';
 import './Footer.css'
@@ -198,13 +197,10 @@ export default function Students_dashboard() {
 				logout={<Button onClick={handleLogout}>Log Out</Button>}
 				updateProfile={
 					<Button>
-						<Link to="/updateProfile">Update Password</Link>
+						<Link to="/updateProfile" style={{ textDecoration: "none", color: "white" }}>Update Password</Link>
 					</Button>
 				}
 			/>
-			<Link to={`/forum/${course_name}`} >
-				<Button variant="contained" color="secondary" >Go to Forum</Button>
-			</Link>
 			{explore ? (
 				<>
 					<h1>Course Material</h1>

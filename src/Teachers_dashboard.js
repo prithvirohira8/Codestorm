@@ -17,6 +17,7 @@ import teacher from "./images/teacher.png";
 import './anchor.css';
 import FooterNew from './FooterNew';
 import './Footer.css'
+import Forum from './Forum/Forum';
 
 const useStyles = makeStyles({
     root: {
@@ -49,9 +50,7 @@ export default function Teachers_dashboard() {
     const [loading, setLoading] = useState(false);
     const [button, setButton] = useState("");
     const [CourseName, setCourseName] = useState("");
-    const [view_course, setView_course] = useState(false);
-    const [tcourses, setTcourses] = useState();
-    const [display, setDisplay] = useState();
+    const [display, setDisplay] = useState(false);
 
     var courses_display = [];
     var teacher_courses = [];
@@ -101,169 +100,175 @@ export default function Teachers_dashboard() {
     }
 
 
-useEffect(() => {
-    undefined();
-    viewcourse();
-}, [])
+    useEffect(() => {
+        undefined();
+        viewcourse();
+    }, [])
 
-const undefined = async () => {
-    const teacher_info_ref = app.database().ref("Teachers/" + currentUser.uid);
-    const teacher_info = [];
-    await teacher_info_ref.once("value").then((snapshot) => {
-        teacher_info.push(snapshot.val());
-    });
-    setName(teacher_info[0].Name);
-};
+    const undefined = async () => {
+        const teacher_info_ref = app.database().ref("Teachers/" + currentUser.uid);
+        const teacher_info = [];
+        await teacher_info_ref.once("value").then((snapshot) => {
+            teacher_info.push(snapshot.val());
+        });
+        setName(teacher_info[0].Name);
+    };
 
 
 
-function handleSubmit(e) {
-    e.preventDefault();
-    const Course_Ref = app.database().ref('Courses/' + CourseNameRef.current.value)
-    setCourseName(CourseNameRef.current.value)
-    const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-    const Course_info = {
-        Name: CourseNameRef.current.value,
-        Description: CourseDescriptionRef.current.value,
-        Forum: [],
-        VideoTitle: "",
-        VideoDescription: "",
-        VideoLink: "",
-        no_of_likes: 0,
-        No_of_students_enrolled: 0,
-        AuthorUID: currentUser.uid,
-        AuthorName: name,
-        DateofCreation: date
+    function handleSubmit(e) {
+        e.preventDefault();
+        const Course_Ref = app.database().ref('Courses/' + CourseNameRef.current.value)
+        setCourseName(CourseNameRef.current.value)
+        const current = new Date();
+        const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+        const Course_info = {
+            Name: CourseNameRef.current.value,
+            Description: CourseDescriptionRef.current.value,
+            Forum: [],
+            VideoTitle: "",
+            VideoDescription: "",
+            VideoLink: "",
+            no_of_likes: 0,
+            No_of_students_enrolled: 0,
+            AuthorUID: currentUser.uid,
+            AuthorName: name,
+            DateofCreation: date
+        }
+        Course_Ref.child('Course_Details').set(Course_info)
+
+        const teachers_course_Ref = app.database().ref('Teachers')
+        const teachers_course_details = {
+            Name: CourseNameRef.current.value
+        }
+        teachers_course_Ref.child('MyCourses').set(teachers_course_details)
+        setCreateCourse(true);
     }
-    Course_Ref.child('Course_Details').set(Course_info)
 
-    const teachers_course_Ref = app.database().ref('Teachers')
-    const teachers_course_details = {
-        Name: CourseNameRef.current.value
+    function handleSubmit1(e) {
+        e.preventDefault();
+        const Topic_Ref = app.database().ref('Courses/' + CourseName)
+        const Topic_info = {
+            VideoTitle: CourseTopicNameRef.current.value,
+            VideoDescription: TopicDescriptionRef.current.value,
+            VideoLink: VideoLinkRef.current.value,
+            Quiz: ""
+        }
+        Topic_Ref.push(Topic_info)
+        // const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
+        // teachers_course_Ref.push(Topic_info);
+        setCreateCourse(true);
     }
-    teachers_course_Ref.child('MyCourses').set(teachers_course_details)
-    setCreateCourse(true);
-}
 
-function handleSubmit1(e) {
-    e.preventDefault();
-    const Topic_Ref = app.database().ref('Courses/' + CourseName)
-    const Topic_info = {
-        VideoTitle: CourseTopicNameRef.current.value,
-        VideoDescription: TopicDescriptionRef.current.value,
-        VideoLink: VideoLinkRef.current.value,
-        Quiz: ""
-    }
-    Topic_Ref.push(Topic_info)
-    // const teachers_course_Ref = app.database().ref('Teachers/'+currentUser.uid+'/MyCourses')
-    // teachers_course_Ref.push(Topic_info);
-    setCreateCourse(true);
-}
+    return (
+        <div>
+            <Navbar
+                logout={<Button onClick={handleLogout}>Log Out</Button>}
+                updateProfile={
+                    <Button>
+                        <Link to="/updateProfile">Update Password</Link>
+                    </Button>
+                }
+            />
 
-return (
-    <>
-        <Navbar
-            logout={<Button onClick={handleLogout}>Log Out</Button>}
-            updateProfile={
-                <Button>
-                    <Link to="/updateProfile">Update Password</Link>
-                </Button>
-            }
-        />
-
-        <section>
-            <div className="imgBx">
-                <div className="photo">
-                    <img src={teacher} />
+            <section style={{height: "1200px"}}>
+                <div className="imgBx">
+                    <div className="photo">
+                        <img src={teacher} />
+                    </div>
                 </div>
-            </div>
-            <div className="contentBx">
-                <div className="formBx"></div>
-                <div>
-                    <h1>Instructor's Dashboard</h1>
-                    <h3>Hey {name}</h3>
-                </div>
-                {CreateCourse ? (
+                <div className="contentBx" style={{ flexDirection: "column" }}>
+                    <div className="formBx"></div>
                     <div>
-                        <form onSubmit={handleSubmit1} className={classes.root}>
+                        <h1>Instructor's Dashboard</h1>
+                        <h3>Hey {name}</h3>< br />
+                    </div>
+                    {CreateCourse ? (
+                        <div>
+                            <form onSubmit={handleSubmit1} className={classes.root}>
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Topic Name"
+
+                                    required
+                                    inputRef={CourseTopicNameRef}
+                                />
+                                <br />
+                                <br />
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Topic Description"
+
+                                    required
+                                    inputRef={TopicDescriptionRef}
+                                />
+                                <br />
+                                <br />
+                                <TextField
+                                    id="outlined-basic"
+                                    label="Video Link"
+
+                                    required
+                                    inputRef={VideoLinkRef}
+                                />
+                                <br />
+                                <br />
+                                <Button
+                                    type="submit"
+                                    onClick={(e)=>{
+                                        e.preventDefault();
+                                        setDisplay(true);
+                                    }}
+                                    disabled={loading}
+                                    variant="contained"
+                                    color="secondary"
+                                >
+                                    Add Topic
+                                </Button>
+                                {display && <Quiz CourseName={CourseName} /> }
+                            </form>
+                            <br />
+                            <br />
+                            <Button
+                                onClick={push}
+                                disabled={loading}
+                                color="secondary"
+                                variant="contained"
+                            >
+                                Add Course
+                            </Button>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className={classes.root}>
                             <TextField
                                 id="outlined-basic"
-                                label="Topic Name"
-
+                                label="Course Name"
                                 required
-                                inputRef={CourseTopicNameRef}
+                                inputRef={CourseNameRef}
                             />
                             <br />
                             <br />
                             <TextField
                                 id="outlined-basic"
-                                label="Topic Description"
-                                
+                                label="Description"
                                 required
-                                inputRef={TopicDescriptionRef}
-                            />
-                            <br />
-                            <br />
-                            <TextField
-                                id="outlined-basic"
-                                label="Video Link"
-
-                                required
-                                inputRef={VideoLinkRef}
+                                inputRef={CourseDescriptionRef}
                             />
                             <br />
                             <br />
                             <Button
                                 type="submit"
                                 disabled={loading}
-
+                                variant="contained"
                                 color="secondary"
                             >
-                                Add Topic
+                                Create Course
                             </Button>
                         </form>
-                        <br />
-                        <br />
-                        <Button
-                            onClick={push}
-                            disabled={loading}
-                            color="secondary"
-                        >
-                            Add Course
-                        </Button>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className={classes.root}>
-                        <TextField
-                            id="outlined-basic"
-                            label="Course Name"
-                            required
-                            inputRef={CourseNameRef}
-                        />
-                        <br />
-                        <br />
-                        <TextField
-                            id="outlined-basic"
-                            label="Description"
-                            required
-                            inputRef={CourseDescriptionRef}
-                        />
-                        <br />
-                        <br />
-                        <Button
-                            type="submit"
-                            disabled={loading}
-                            variant="contained"
-                            color="secondary"
-                        >
-                            Create Course
-                        </Button>
-                    </form>
-                )}
-            </div>
-        </section>
-        <FooterNew />
-    </>
-);
+                    )}
+                </div>
+            </section>
+            <FooterNew />
+        </div>
+    );
 }
