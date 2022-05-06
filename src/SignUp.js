@@ -162,7 +162,6 @@ export default function Signup() {
 							disabled={loading}
 							variant="contained"
 							color="secondary"
-							type="password"
 						>
 							SignUp
 						</Button>
