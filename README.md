@@ -1,7 +1,7 @@
 # Devsera
 *A web application providing a healthy enviournment for anyone to learn full stack development for free.*
 
-![Home Page](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/home-page.png?raw=true "Home Page")
+![Home Page](https://drive.google.com/uc?id=18QIDAVMiKRsrliZwe0AytK3UNzOtmbHL "Home Page")
 
 ### Tech Stacks used
 - React JS and Firebase.
@@ -29,38 +29,38 @@
 ##### Instructor Login
 - The instructors need to sign up first and then can login.
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/teachers-login.png?raw=true " Login Page")
+![Loading](https://drive.google.com/uc?id=170QFqG0MHxkv6YAo79iOqMuGrwDSTjo5 " Login Page")
 
 - Dashboard
 
-![Instructor Login Page Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/teacher-dashboard1.png?raw=true "Instructor Login Page")
+![Instructor Login Page Loading](https://drive.google.com/uc?id=1A4AKJdN7NzULpCU6-E8G-vMPRmLTqY6o "Instructor Login Page")
 
 ##### Creating a course
 
-![ Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/teacher-dashboard2.png?raw=true "Adding courses")
+![ Loading](https://drive.google.com/uc?id=1yQP9k7jHbHRpDjXbj1LWlkloFR6HTjD_ "Adding courses")
 
 - The add topic button helps to add a topic and create quiz button helps to create a quiz for the course.
 
-![ Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/teacher-dashboard3.png?raw=true "Adding courses")
+![ Loading](https://drive.google.com/uc?id=10OAeBI789_qJSRndAtIzejWUGifcMOVO "Adding courses")
 
-![ Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/teacher-dashboard4.png?raw=true "Adding courses")
+![ Loading](https://drive.google.com/uc?id=1CWptsOQY1GoYBbPwQwbX9CbV9hzypo1_ "Adding courses")
 
 ##### Student Login
 - The student need to sign up first and then can login.
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/student-login-page1.png?raw=true " Login Page")
+![Loading](https://drive.google.com/uc?id=1lZ91B_xNtSZuR9oqnpDVW5ZEsJtjYfSQ " Login Page")
 
 - Student Dashboard
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/student-dashboard1.png?raw=true " Dashboard Page")
+![Loading](https://drive.google.com/uc?id=1Zn9OrRlRVACChD8ih42wb4yuaIM0_8uB " Dashboard Page")
 
 - The student can navigate to the courses page and the courses.
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/courses1.png?raw=true " Courses Page")
+![Loading](https://drive.google.com/uc?id=1HZPGURub2z12Vyw8qjHG1aUUmfD3SM8s " Courses Page")
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/java-courses3.png?raw=true " Courses Page")
-
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/java-courses2.png?raw=true " Courses Page")
+![Loading](https://drive.google.com/uc?id=13HLocd59szONKuuDEkeSVNlWhWVJZl_6 " Courses Page")
+k
+![Loading](https://drive.google.com/uc?id=1gXrN9yKAZw-E_qNOJUNyKciBsu_VDfq3 " Courses Page")
 
 - Students can engage in discussions and answer queries in the Forum section
 
@@ -68,9 +68,9 @@
 
 - Quiz to assist students grasp a better understanding of what they learned
 
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/web-dev-quiz-1.png?raw=true " Quiz Page")
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/web-dev-quiz-2.png?raw=true " Quiz Page")
-![Loading](https://github.com/prithvirohira8/prithvirohira8.github.io/blob/main/_posts/images/devsera/web-dev-quiz-3.png?raw=true " Quiz Page")
+![Loading](https://drive.google.com/uc?id=16-NkHQMO3EEr0dYmo4NIFIHRiHVG-OQ3 " Quiz Page")
+![Loading](https://drive.google.com/uc?id=1DcoO6T4brR7y-Kx_Vk-zkQvrIwflHBhX " Quiz Page")
+![Loading](https://drive.google.com/uc?id=1ogGOYMWsLRtCyYGaxg_CTQhQ8ldedrPv " Quiz Page")
 
 ### How to clone the repository
 The frontend branch contains all the updates codes. Just clone that branch.
