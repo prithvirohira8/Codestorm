@@ -1,7 +1,7 @@
 # Devsera
 *A web application providing a healthy enviournment for anyone to learn full stack development for free.*
 
-![Home Page](https://drive.google.com/uc?id=18QIDAVMiKRsrliZwe0AytK3UNzOtmbHL "Home Page")
+<img src="./images/home_page.png"/>
 
 ### Tech Stacks used
 - React JS and Firebase.
@@ -29,38 +29,38 @@
 ##### Instructor Login
 - The instructors need to sign up first and then can login.
 
-![Loading](https://drive.google.com/uc?id=170QFqG0MHxkv6YAo79iOqMuGrwDSTjo5 " Login Page")
+<img src="./images/login_page.png"/>
 
 - Dashboard
 
-![Instructor Login Page Loading](https://drive.google.com/uc?id=1A4AKJdN7NzULpCU6-E8G-vMPRmLTqY6o "Instructor Login Page")
+<img src="./images/instructor_landing_page.png"/>
 
 ##### Creating a course
 
-![ Loading](https://drive.google.com/uc?id=1yQP9k7jHbHRpDjXbj1LWlkloFR6HTjD_ "Adding courses")
+<img src="./images/adding_courses.png"/>
 
 - The add topic button helps to add a topic and create quiz button helps to create a quiz for the course.
 
-![ Loading](https://drive.google.com/uc?id=10OAeBI789_qJSRndAtIzejWUGifcMOVO "Adding courses")
+<img src="./images/adding_courses_2.png"/>
 
-![ Loading](https://drive.google.com/uc?id=1CWptsOQY1GoYBbPwQwbX9CbV9hzypo1_ "Adding courses")
+<img src="./images/adding_courses_3.png"/>
 
 ##### Student Login
 - The student need to sign up first and then can login.
 
-![Loading](https://drive.google.com/uc?id=1lZ91B_xNtSZuR9oqnpDVW5ZEsJtjYfSQ " Login Page")
+<img src="./images/student_login.png"/>
 
 - Student Dashboard
 
-![Loading](https://drive.google.com/uc?id=1Zn9OrRlRVACChD8ih42wb4yuaIM0_8uB " Dashboard Page")
+<img src="./images/student_dashboard.png"/>
 
 - The student can navigate to the courses page and the courses.
 
-![Loading](https://drive.google.com/uc?id=1HZPGURub2z12Vyw8qjHG1aUUmfD3SM8s " Courses Page")
+<img src="./images/course_page_1.png"/>
 
-![Loading](https://drive.google.com/uc?id=13HLocd59szONKuuDEkeSVNlWhWVJZl_6 " Courses Page")
-k
-![Loading](https://drive.google.com/uc?id=1gXrN9yKAZw-E_qNOJUNyKciBsu_VDfq3 " Courses Page")
+<img src="./images/course_page_2.png"/>
+
+<img src="./images/course_page_3.png"/>
 
 - Students can engage in discussions and answer queries in the Forum section
 
@@ -68,9 +68,11 @@ k
 
 - Quiz to assist students grasp a better understanding of what they learned
 
-![Loading](https://drive.google.com/uc?id=16-NkHQMO3EEr0dYmo4NIFIHRiHVG-OQ3 " Quiz Page")
-![Loading](https://drive.google.com/uc?id=1DcoO6T4brR7y-Kx_Vk-zkQvrIwflHBhX " Quiz Page")
-![Loading](https://drive.google.com/uc?id=1ogGOYMWsLRtCyYGaxg_CTQhQ8ldedrPv " Quiz Page")
+<img src="./images/quiz_1.png"/>
+
+<img src="./images/quiz_2.png"/>
+
+<img src="./images/quiz_3.png"/>
 
 ### How to clone the repository
 The frontend branch contains all the updates codes. Just clone that branch.
